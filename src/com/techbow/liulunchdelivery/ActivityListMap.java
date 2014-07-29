@@ -12,6 +12,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVObject;
+
 public class ActivityListMap extends ActionBarActivity implements
 		ActionBar.TabListener, NavigationDrawerFragment.NavigationDrawerCallbacks{
 
@@ -82,6 +86,13 @@ public class ActivityListMap extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
+		AVAnalytics.trackAppOpened(getIntent());
+		
+		AVObject testObject = new AVObject("TestObject");
+		testObject.put("foo", "bar");
+		testObject.saveInBackground();
 	}
 	
 	@Override
