@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVObject;
+import com.baidu.mapapi.SDKInitializer;
 
 public class ActivityListMap extends ActionBarActivity implements
 		ActionBar.TabListener, NavigationDrawerFragment.NavigationDrawerCallbacks{
@@ -42,6 +43,7 @@ public class ActivityListMap extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.activity_list_map);
 		
 		// Set up the action bar.
