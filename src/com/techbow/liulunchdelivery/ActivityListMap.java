@@ -1,5 +1,6 @@
 package com.techbow.liulunchdelivery;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -7,8 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +37,7 @@ public class ActivityListMap extends ActionBarActivity implements
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	ViewPager mViewPager;
+	CustomerViewPager mViewPager;
 	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -57,7 +62,7 @@ public class ActivityListMap extends ActionBarActivity implements
 				getSupportFragmentManager(), this);
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager = (CustomerViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -70,6 +75,17 @@ public class ActivityListMap extends ActionBarActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
+//		mViewPager.setOnTouchListener(new OnTouchListener() {
+//			
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				if (mViewPager.getCurrentItem() == 1) {
+//					return true;
+//				}
+//				return false;
+//			}
+//		});
 
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
