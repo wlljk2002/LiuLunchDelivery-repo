@@ -2,6 +2,8 @@ package com.techbow.liulunchdelivery;
 
 import java.util.Locale;
 
+import com.techbow.liulunchdelivery.List.FragmentList;
+
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

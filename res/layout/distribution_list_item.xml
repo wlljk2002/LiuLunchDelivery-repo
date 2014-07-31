@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+	<ImageView android:id="@+id/lunchTodayPic" android:layout_width="105dp"
+		android:layout_height="105dp" android:visibility="visible"/>
+	<LinearLayout android:orientation="vertical" android:layout_height="105dp"
+	    android:layout_width="wrap_content">
+		<TextView android:id="@+id/distributionName" android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+		<TextView android:id="@+id/distributionAddress" android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+		<TextView android:id="@+id/lunchName" android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+	</LinearLayout>
+</LinearLayout>

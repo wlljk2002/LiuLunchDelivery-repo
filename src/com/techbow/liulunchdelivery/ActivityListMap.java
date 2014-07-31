@@ -1,6 +1,5 @@
 package com.techbow.liulunchdelivery;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -8,12 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +16,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVObject;
 import com.baidu.mapapi.SDKInitializer;
+import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 public class ActivityListMap extends ActionBarActivity implements
 		ActionBar.TabListener, NavigationDrawerFragment.NavigationDrawerCallbacks{
@@ -108,9 +104,12 @@ public class ActivityListMap extends ActionBarActivity implements
 		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
 		AVAnalytics.trackAppOpened(getIntent());
 		
-		AVObject testObject = new AVObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
+//		DistributionSite distribution = new DistributionSite();
+//		distribution.setName("上海交大");
+//		distribution.setAddress("闵行区东川路800号");
+//		for(int i = 0; i < 11; i++) {
+//			distribution.saveToCloud();
+//		}
 	}
 	
 	@Override
