@@ -29,12 +29,12 @@ public class ActivityListMap extends ActionBarActivity implements
 	 * becomes too memory intensive, it may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	PagerAdapterListMap mSectionsPagerAdapter;
+	private PagerAdapterListMap mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
-	CustomerViewPager mViewPager;
+	private CustomerViewPager mViewPager;
 	
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -64,7 +64,7 @@ public class ActivityListMap extends ActionBarActivity implements
 				getSupportFragmentManager(), this);
 
 		// Set up the ViewPager with the sections adapter.
-		mViewPager = (CustomerViewPager) findViewById(R.id.pager);
+		mViewPager = (CustomerViewPager) findViewById(R.id.listMapPager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		// When swiping between different sections, select the corresponding
@@ -77,6 +77,7 @@ public class ActivityListMap extends ActionBarActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
+		//“‘œ¬¥˙¬Î ‘Õº πmap view≤ªª·±ªviewpager∑≠“≥£¨–ßπ˚≤ª∫√£¨ø®∂Ÿ
 //		mViewPager.setOnTouchListener(new OnTouchListener() {
 //			
 //			@Override
@@ -88,7 +89,7 @@ public class ActivityListMap extends ActionBarActivity implements
 //				return false;
 //			}
 //		});
-
+		
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
@@ -101,6 +102,7 @@ public class ActivityListMap extends ActionBarActivity implements
 			tab.setTabListener(this);
 			actionBar.addTab(tab);
 		}
+
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		// Set up the drawer.
@@ -111,13 +113,19 @@ public class ActivityListMap extends ActionBarActivity implements
 		AVAnalytics.trackAppOpened(getIntent());
 		
 //		DistributionSite distribution = new DistributionSite();
-//		distribution.setName("‰∏äÊµ∑‰∫§Â§ß");
-//		distribution.setAddress("ÈóµË°åÂå∫‰∏úÂ∑ùË∑Ø800Âè∑");
+//		distribution.setName("…œ∫£Ωª¥Û");
+//		distribution.setAddress("√ˆ––«¯∂´¥®¬∑800∫≈");
 //		for(int i = 0; i < 11; i++) {
 //			distribution.saveToCloud();
 //		}
 	}
-	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		//actionBar.removeAllTabs();
+		
+	}
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments

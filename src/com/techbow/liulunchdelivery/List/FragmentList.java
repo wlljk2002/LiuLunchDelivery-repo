@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.lunch.ActivityLunch;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -42,6 +44,9 @@ public class FragmentList extends Fragment {
 				// TODO Auto-generated method stub
 				DistributionSite site = (DistributionSite) distributionListView.getItemAtPosition(position);
 				Toast.makeText(getActivity(), "site " + position + " is chosen", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getActivity(), ActivityLunch.class);
+				intent.putExtra("distributionSite", site);
+				startActivity(intent);
 			}
 		});
 		new DistributionListAsyncTask(distributionSiteList, distributionListViewAdapter, getActivity()).execute();
