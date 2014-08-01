@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,8 @@ public class ActivityListMap extends ActionBarActivity implements
 	 * navigation drawer.
 	 */
 	private NavigationDrawerFragment mNavigationDrawerFragment;
+	
+	private ActionBar actionBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +51,12 @@ public class ActivityListMap extends ActionBarActivity implements
 		setContentView(R.layout.activity_list_map);
 		
 		// Set up the action bar.
-		final ActionBar actionBar = getSupportActionBar();
+		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		//actionBar.setDisplayShowTitleEnabled(false);
+		View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+	    actionBar.setCustomView(customerView);
+	    actionBar.setDisplayShowCustomEnabled(true);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -116,28 +122,29 @@ public class ActivityListMap extends ActionBarActivity implements
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
 		mViewPager.setCurrentItem(position);
+		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.list_map, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			Toast.makeText(this, "action setting.", Toast.LENGTH_SHORT).show();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		getMenuInflater().inflate(R.menu.list_map, menu);
+//		return true;
+//	}
+//
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		// Handle action bar item clicks here. The action bar will
+//		// automatically handle clicks on the Home/Up button, so long
+//		// as you specify a parent activity in AndroidManifest.xml.
+//		int id = item.getItemId();
+//		if (id == R.id.action_settings) {
+//			Toast.makeText(this, "action setting.", Toast.LENGTH_SHORT).show();
+//			return true;
+//		}
+//		return super.onOptionsItemSelected(item);
+//	}
 
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
