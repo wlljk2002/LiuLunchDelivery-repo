@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.lunch.ActivityLunch;
+import com.techbow.liulunchdelivery.parameter.DistributionGeo;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class FragmentList extends Fragment {
 	private List<DistributionSite> distributionSiteList;
+	private List<DistributionGeo> distributionGeoList;
 	private ListView distributionListView;
 	private DistributionListViewAdapter distributionListViewAdapter;
 	
@@ -28,6 +30,7 @@ public class FragmentList extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		distributionSiteList = new ArrayList<DistributionSite>();
+		distributionGeoList = new ArrayList<DistributionGeo>();
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +52,7 @@ public class FragmentList extends Fragment {
 				startActivity(intent);
 			}
 		});
-		new DistributionListAsyncTask(distributionSiteList, distributionListViewAdapter, getActivity()).execute();
+		new DistributionListAsyncTask(distributionSiteList, distributionGeoList, distributionListViewAdapter, getActivity()).execute();
 		return rootView;
 	}
 

@@ -13,18 +13,22 @@ public class DistributionSite implements Serializable{
 	private String geoPointObjectId;
 	private String name;
 	private String address;
-	private String setYesterdayObjectId;
 	private String setTodayObjectId;
 	private String setTomorrowObjectId;
+	private String setThirdObjectId;
+	private String setFourthObjectId;
+	private String setFifthObjectId;
 	
 	public DistributionSite() {
 		super();
 		geoPointObjectId = null;
 		name = null;
 		address = null;
-		setYesterdayObjectId = null;
 		setTodayObjectId = null;
 		setTomorrowObjectId = null;
+		setThirdObjectId = null;
+		setFourthObjectId = null;
+		setFifthObjectId = null;
 	}
 	
 	public String getGeoPointObjectId() {
@@ -45,12 +49,6 @@ public class DistributionSite implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getSetYesterdayObjectId() {
-		return setYesterdayObjectId;
-	}
-	public void setSetYesterdayObjectId(String setYesterdayObjectId) {
-		this.setYesterdayObjectId = setYesterdayObjectId;
-	}
 	public String getSetTodayObjectId() {
 		return setTodayObjectId;
 	}
@@ -63,26 +61,54 @@ public class DistributionSite implements Serializable{
 	public void setSetTomorrowObjectId(String setTomorrowObjectId) {
 		this.setTomorrowObjectId = setTomorrowObjectId;
 	}
-	
-	public void saveToCloud() {
+	public String getSetThirdObjectId() {
+		return setThirdObjectId;
+	}
+	public void setSetThirdObjectId(String setThirdObjectId) {
+		this.setThirdObjectId = setThirdObjectId;
+	}
+	public String getSetFourthObjectId() {
+		return setFourthObjectId;
+	}
+	public void setSetFourthObjectId(String setFourthObjectId) {
+		this.setFourthObjectId = setFourthObjectId;
+	}
+	public String getSetFifthObjectId() {
+		return setFifthObjectId;
+	}
+	public void setSetFifthObjectId(String setFifthObjectId) {
+		this.setFifthObjectId = setFifthObjectId;
+	}
+
+	public String saveToCloud() {
 		final AVObject distributeSite = new AVObject("DistributeSite");
 		distributeSite.put("geoPointObjectId", geoPointObjectId);
 		distributeSite.put("name", name);
 		distributeSite.put("address", address);
-		distributeSite.put("setYesterdayObjectId", setYesterdayObjectId);
 		distributeSite.put("setTodayObjectId", setTodayObjectId);
 		distributeSite.put("setTomorrowObjectId", setTomorrowObjectId);
-		distributeSite.saveInBackground(new SaveCallback() {
-			
-			@Override
-			public void done(AVException e) {
-				// TODO Auto-generated method stub
-				if (e == null) {
-					Log.w("Avos", "object id =" + distributeSite.getObjectId());
-				} else {
-					Log.w("Avos", "save in background fail");
-				}
-			}
-		});
+		distributeSite.put("setThirdObjectId", setThirdObjectId);
+		distributeSite.put("setFourthObjectId", setFourthObjectId);
+		distributeSite.put("setFifthObjectId", setFifthObjectId);
+//		distributeSite.saveInBackground(new SaveCallback() {
+//			
+//			@Override
+//			public void done(AVException e) {
+//				// TODO Auto-generated method stub
+//				if (e == null) {
+//					Log.w("Avos", "object id =" + distributeSite.getObjectId());
+//				} else {
+//					Log.w("Avos", "save in background fail");
+//				}
+//			}
+//		});
+		try {
+			distributeSite.save();
+			Log.w("Avos", "object id =" + distributeSite.getObjectId());
+		} catch (AVException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return distributeSite.getObjectId();
 	}
 }

@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVObject;
 import com.baidu.mapapi.SDKInitializer;
+import com.techbow.liulunchdelivery.parameter.DistributionGeo;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 public class ActivityListMap extends ActionBarActivity implements
@@ -112,12 +114,24 @@ public class ActivityListMap extends ActionBarActivity implements
 		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
 		AVAnalytics.trackAppOpened(getIntent());
 		
-//		DistributionSite distribution = new DistributionSite();
-//		distribution.setName("上海交大");
-//		distribution.setAddress("闽行区东川路800号");
-//		for(int i = 0; i < 11; i++) {
-//			distribution.saveToCloud();
-//		}
+//		new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				DistributionSite distribution = new DistributionSite();
+//				distribution.setName("上海交大");
+//				distribution.setAddress("闽行区东川路800号");
+//				DistributionGeo geo = new DistributionGeo();
+//				for(int i = 0; i < 11; i++) {
+//					
+//					geo.setPoint(new AVGeoPoint(i, i));
+//					geo.setDistributionSiteObjectId(distribution.saveToCloud());
+//					geo.saveToCloud();
+//				}
+//			}
+//		}).start();
+	
 	}
 	@Override
 	protected void onResume() {
