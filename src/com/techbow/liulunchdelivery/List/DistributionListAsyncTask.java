@@ -71,6 +71,11 @@ public class DistributionListAsyncTask extends AsyncTask<Void, Void, Void> {
 			DistributionSite site = new DistributionSite();
 			site.setName(objSite.getString("name"));
 			site.setAddress(objSite.getString("address"));
+			site.setSetTodayObjectId(objSite.getString("setTodayObjectId"));
+			site.setSetTomorrowObjectId(objSite.getString("setTomorrowObjectId"));
+			site.setSetThirdObjectId(objSite.getString("setThirdObjectId"));
+			site.setSetFourthObjectId(objSite.getString("setFourthObjectId"));
+			site.setSetFifthObjectId(objSite.getString("setFifthObjectId"));
 			distributionSiteList.add(site);
 		}
 		

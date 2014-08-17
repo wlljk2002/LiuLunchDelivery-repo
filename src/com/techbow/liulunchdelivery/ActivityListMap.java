@@ -7,19 +7,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.avos.avoscloud.AVGeoPoint;
-import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVOSCloud;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.mapapi.SDKInitializer;
-import com.techbow.liulunchdelivery.parameter.DistributionGeo;
-import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 public class ActivityListMap extends ActionBarActivity implements
 		ActionBar.TabListener, NavigationDrawerFragment.NavigationDrawerCallbacks{
@@ -45,6 +44,9 @@ public class ActivityListMap extends ActionBarActivity implements
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	
 	private ActionBar actionBar;
+	
+	public LocationClient mLocationClient = null;
+	public BDLocationListener myListener = new MyLocationListener();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,19 +121,73 @@ public class ActivityListMap extends ActionBarActivity implements
 //			@Override
 //			public void run() {
 //				// TODO Auto-generated method stub
-//				DistributionSite distribution = new DistributionSite();
-//				distribution.setName("上海交大");
-//				distribution.setAddress("闽行区东川路800号");
-//				DistributionGeo geo = new DistributionGeo();
-//				for(int i = 0; i < 11; i++) {
-//					
-//					geo.setPoint(new AVGeoPoint(i, i));
-//					geo.setDistributionSiteObjectId(distribution.saveToCloud());
-//					geo.saveToCloud();
-//				}
+////				DistributionSite distribution = new DistributionSite();
+////				distribution.setName("上海交大");
+////				distribution.setAddress("闽行区东川路800号");
+////				distribution.setSetTodayObjectId("53ee1a09e4b00eb68958aa0f");
+////				distribution.setSetTomorrowObjectId("53ee1a09e4b00eb68958aa0f");
+////				distribution.setSetThirdObjectId("53ee1a09e4b00eb68958aa0f");
+////				distribution.setSetFourthObjectId("53ee1a09e4b00eb68958aa0f");
+////				distribution.setSetFifthObjectId("53ee1a09e4b00eb68958aa0f");
+////				DistributionGeo geo = new DistributionGeo();
+////				for(int i = 0; i < 11; i++) {
+////					
+////					geo.setPoint(new AVGeoPoint(i, i));
+////					geo.setDistributionSiteObjectId(distribution.saveToCloud());
+////					geo.saveToCloud();
+////				}
+////				String file = "http__s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
+////				try {
+////					AVFile pic = AVFile.withFile(file, FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file));
+////					pic.save();
+////					Log.w("AvosFile", "object id =" + pic.getObjectId());
+////					String url = pic.getThumbnailUrl(false, 200, 100);
+////					Log.w("AvosFile", "url =" + url);
+////				} catch (FileNotFoundException e) {
+////					// TODO Auto-generated catch block
+////					e.printStackTrace();
+////				} catch (IOException e) {
+////					// TODO Auto-generated catch block
+////					e.printStackTrace();
+////				} catch (AVException e) {
+////					e.printStackTrace();
+////				}
+////				try {
+////					AVFile pic = AVFile.withObjectId("53ee1321e4b00eb68958997b");
+////					byte[] b = pic.getData();
+////					Log.w("AvosFile", "byte[] =" + b);
+////					String url = pic.getThumbnailUrl(false, 200, 200);
+////					LunchSet set = new LunchSet();
+////					set.setName("黑椒牛排");
+////					set.setObjectId("53ee1321e4b00eb68958997b");
+////					set.setThumbnailUrl(url);
+////					set.setPrice("27");
+////					set.saveToCloud();
+////				} catch (FileNotFoundException e) {
+////					// TODO Auto-generated catch block
+////					e.printStackTrace();
+////				} catch (AVException e) {
+////					// TODO Auto-generated catch block
+////					e.printStackTrace();
+////				}
 //			}
 //		}).start();
-	
+		
+		mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+	    mLocationClient.registerLocationListener( myListener );    //注册监听函数
+	    mLocationClient.start();
+	    LocationClientOption option = new LocationClientOption();
+	    option.setLocationMode(LocationMode.Hight_Accuracy);//设置定位模式
+	    option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
+	    //option.setOpenGps(true);
+	    //option.setScanSpan(5000);//设置发起定位请求的间隔时间为5000ms
+	    option.setIsNeedAddress(true);//返回的定位结果包含地址信息
+	    option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
+	    mLocationClient.setLocOption(option);
+	    if (mLocationClient != null && mLocationClient.isStarted())
+	    	mLocationClient.requestLocation();
+	    else 
+	    	Log.w("LocSDK4", "locClient is null or not started");
 	}
 	@Override
 	protected void onResume() {
@@ -182,7 +238,46 @@ public class ActivityListMap extends ActionBarActivity implements
 	}
 
 	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		mLocationClient.stop();
+		super.onDestroy();
+	}
+	
+	@Override
 	public void onTabReselected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
 	}
+	
+	public class MyLocationListener implements BDLocationListener {
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+			if (location == null)
+		            return ;
+			StringBuffer sb = new StringBuffer(256);
+			sb.append("time : ");
+			sb.append(location.getTime());
+			sb.append("\nerror code : ");
+			sb.append(location.getLocType());
+			sb.append("\nlatitude : ");
+			sb.append(location.getLatitude());
+			sb.append("\nlontitude : ");
+			sb.append(location.getLongitude());
+			sb.append("\nradius : ");
+			sb.append(location.getRadius());
+			if (location.getLocType() == BDLocation.TypeGpsLocation){
+				sb.append("\nspeed : ");
+				sb.append(location.getSpeed());
+				sb.append("\nsatellite : ");
+				sb.append(location.getSatelliteNumber());
+			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
+				sb.append("\naddr : ");
+				sb.append(location.getAddrStr());
+			} 
+ 
+			Log.w("baiduLoc", sb.toString());
+		}
+	}
+
+	
 }
