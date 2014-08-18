@@ -43,10 +43,10 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		// TODO Auto-generated method stub
-		AVGeoPoint curLoc = new AVGeoPoint(FragmentMap.lat, FragmentMap.lon);
+		AVGeoPoint curLoc = new AVGeoPoint(FragmentMap.locationData.latitude, FragmentMap.locationData.longitude);
 		AVQuery<AVObject> queryGeo = new AVQuery<AVObject>("DistributionGeo");
 		queryGeo.whereNear("point", curLoc);
-		queryGeo.setLimit(8); //获取最接近用户地点的8条数据
+		queryGeo.setLimit(6); //获取最接近用户地点的6条数据
 		List<AVObject> nearPlaces = null;
 		try {
 			nearPlaces = queryGeo.find();
