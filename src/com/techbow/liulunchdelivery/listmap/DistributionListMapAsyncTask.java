@@ -1,4 +1,4 @@
-package com.techbow.liulunchdelivery.List;
+package com.techbow.liulunchdelivery.listmap;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-public class DistributionListAsyncTask extends AsyncTask<Void, Void, Void> {
+public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 	private List<DistributionSite> distributionSiteList;
 	private List<DistributionGeo> distributionGeoList;
 	private DistributionListViewAdapter distributionListViewAdapter;
 	private Context context;
 
-	public DistributionListAsyncTask(
+	public DistributionListMapAsyncTask(
 			List<DistributionSite> distributionSiteList,
 			List<DistributionGeo> distributionGeoList,
 			DistributionListViewAdapter distributionListViewAdapter,
@@ -37,12 +37,13 @@ public class DistributionListAsyncTask extends AsyncTask<Void, Void, Void> {
 		// TODO Auto-generated method stub
 		super.onPreExecute();
 		distributionSiteList.clear();	//this would also clear the adapter
+		distributionGeoList.clear();
 		distributionListViewAdapter.notifyDataSetChanged();
 	}
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		// TODO Auto-generated method stub
-		AVGeoPoint curLoc = new AVGeoPoint(5, 5);
+		AVGeoPoint curLoc = new AVGeoPoint(FragmentMap.lat, FragmentMap.lon);
 		AVQuery<AVObject> queryGeo = new AVQuery<AVObject>("DistributionGeo");
 		queryGeo.whereNear("point", curLoc);
 		queryGeo.setLimit(8); //获取最接近用户地点的8条数据

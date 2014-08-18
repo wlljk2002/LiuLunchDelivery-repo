@@ -1,4 +1,4 @@
-package com.techbow.liulunchdelivery.List;
+package com.techbow.liulunchdelivery.listmap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ public class FragmentList extends Fragment {
 	private List<DistributionGeo> distributionGeoList;
 	private ListView distributionListView;
 	private DistributionListViewAdapter distributionListViewAdapter;
+	static public DistributionListMapAsyncTask asyncTask;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class FragmentList extends Fragment {
 				startActivity(intent);
 			}
 		});
-		new DistributionListAsyncTask(distributionSiteList, distributionGeoList, distributionListViewAdapter, getActivity()).execute();
+		asyncTask = new DistributionListMapAsyncTask(distributionSiteList, distributionGeoList, distributionListViewAdapter, getActivity());
 		return rootView;
 	}
 
