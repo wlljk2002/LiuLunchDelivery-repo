@@ -1,9 +1,5 @@
 package com.techbow.liulunchdelivery.lunch;
 
-import java.util.Locale;
-
-import com.techbow.liulunchdelivery.listmap.FragmentList;
-
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,7 +35,6 @@ public class PagerAdapterLunch extends FragmentPagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		Locale l = Locale.getDefault();
 		switch (position) {
 		case 0:
 			return "yesterday";

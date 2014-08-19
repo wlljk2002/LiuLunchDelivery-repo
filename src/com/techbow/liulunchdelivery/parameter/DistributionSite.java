@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
 
 public class DistributionSite implements Serializable{
 	private static final long serialVersionUID = 2L;
@@ -18,6 +17,7 @@ public class DistributionSite implements Serializable{
 	private String setThirdObjectId;
 	private String setFourthObjectId;
 	private String setFifthObjectId;
+	private String thumbnailUrl;
 	
 	public DistributionSite() {
 		super();
@@ -29,6 +29,7 @@ public class DistributionSite implements Serializable{
 		setThirdObjectId = null;
 		setFourthObjectId = null;
 		setFifthObjectId = null;
+		thumbnailUrl = null;
 	}
 	
 	public String getGeoPointObjectId() {
@@ -79,6 +80,12 @@ public class DistributionSite implements Serializable{
 	public void setSetFifthObjectId(String setFifthObjectId) {
 		this.setFifthObjectId = setFifthObjectId;
 	}
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
 
 	public String saveToCloud() {
 		final AVObject distributeSite = new AVObject("DistributeSite");
@@ -90,6 +97,7 @@ public class DistributionSite implements Serializable{
 		distributeSite.put("setThirdObjectId", setThirdObjectId);
 		distributeSite.put("setFourthObjectId", setFourthObjectId);
 		distributeSite.put("setFifthObjectId", setFifthObjectId);
+		distributeSite.put("thumbnailUrl", thumbnailUrl);
 //		distributeSite.saveInBackground(new SaveCallback() {
 //			
 //			@Override

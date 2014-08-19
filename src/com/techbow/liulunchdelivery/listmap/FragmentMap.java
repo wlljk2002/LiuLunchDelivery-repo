@@ -1,12 +1,18 @@
 package com.techbow.liulunchdelivery.listmap;
 
+import java.io.FileNotFoundException;
+
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -19,10 +25,17 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.parameter.DistributionGeo;
+import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 public class FragmentMap extends Fragment {
-	MapView mMapView = null;
+	public MapView mMapView = null;
 	private LocationClient mLocationClient = null;
 	private BDLocationListener myListener = new MyLocationListener();
 	/** 当前定位的数据 */
@@ -121,29 +134,62 @@ public class FragmentMap extends Fragment {
 			MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
 			mMapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
  			
-// 			new Thread(new Runnable() {
-//				
-//				@Override
-//				public void run() {
-//					// TODO Auto-generated method stub
-//					DistributionSite distribution = new DistributionSite();
-//					distribution.setName("上海交大");
-//					distribution.setAddress("闽行区东川路800号");
-//					distribution.setSetTodayObjectId("53ee1a09e4b00eb68958aa0f");
-//					distribution.setSetTomorrowObjectId("53ee1a09e4b00eb68958aa0f");
-//					distribution.setSetThirdObjectId("53ee1a09e4b00eb68958aa0f");
-//					distribution.setSetFourthObjectId("53ee1a09e4b00eb68958aa0f");
-//					distribution.setSetFifthObjectId("53ee1a09e4b00eb68958aa0f");
-//					DistributionGeo geo = new DistributionGeo();
-//					for(int i = 0; i < 11; i++) {
-//						
-//						geo.setPoint(new AVGeoPoint(lat + (i * 0.00001), lon + (i * 0.00001)));
-//						geo.setDistributionSiteObjectId(distribution.saveToCloud());
-//						geo.saveToCloud();
+// 			for (int i = 0; i < 11; i++) {
+// 				final int idx = i;
+// 				new Thread(new Runnable() {
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						Looper.prepare();
+//						final DistributionSite distribution = new DistributionSite();
+//						distribution.setSetTodayObjectId("53ee1a09e4b00eb68958aa0f");
+//						distribution.setSetTomorrowObjectId("53ee1a09e4b00eb68958aa0f");
+//						distribution.setSetThirdObjectId("53ee1a09e4b00eb68958aa0f");
+//						distribution.setSetFourthObjectId("53ee1a09e4b00eb68958aa0f");
+//						distribution.setSetFifthObjectId("53ee1a09e4b00eb68958aa0f");
+//						try {
+//							AVFile pic = AVFile.withObjectId("53ee1321e4b00eb68958997b");
+//							distribution.setThumbnailUrl(pic.getThumbnailUrl(false, 105, 105));
+//						} catch (FileNotFoundException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						} catch (AVException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						final DistributionGeo geo = new DistributionGeo();
+//						double lat = locationData.latitude + ((double)idx * 0.001);
+//						double lon = locationData.longitude + ((double)idx * 0.001);
+//						geo.setPoint(new AVGeoPoint(lat, lon));
+//						distribution.setName("上海交大" + idx);
+//						GeoCoder geoCoder = GeoCoder.newInstance();
+//						geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(new LatLng(lat, lon)));
+//						geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
+//							
+//							@Override
+//							public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
+//								// TODO Auto-generated method stub
+//								distribution.setAddress(arg0.getAddress());
+//								geo.setDistributionSiteObjectId(distribution.saveToCloud());
+//								geo.saveToCloud();
+//							}
+//							
+//							@Override
+//							public void onGetGeoCodeResult(GeoCodeResult arg0) {
+//								// TODO Auto-generated method stub
+//								
+//							}
+//						});
+//						Looper.loop();
 //					}
+//				}).start();
+// 				try {
+//					Thread.sleep(4000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
 //				}
-//			}).start();
-
+// 			}
 		}
 	}
 

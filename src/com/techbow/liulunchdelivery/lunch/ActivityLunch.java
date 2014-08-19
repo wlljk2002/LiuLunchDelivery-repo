@@ -1,6 +1,5 @@
 package com.techbow.liulunchdelivery.lunch;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -10,8 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.techbow.liulunchdelivery.CustomerViewPager;
-import com.techbow.liulunchdelivery.PagerAdapterListMap;
 import com.techbow.liulunchdelivery.R;
 
 public class ActivityLunch extends ActionBarActivity implements

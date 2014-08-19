@@ -1,7 +1,8 @@
 package com.techbow.liulunchdelivery.listmap;
 
-
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.Utils.AsyncImageLoader;
+import com.techbow.liulunchdelivery.Utils.CallbackImpl;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 import android.content.Context;
@@ -16,7 +17,7 @@ public class DistributionListItem extends LinearLayout {
 	private ImageView imageView;
 	private TextView name;
 	private TextView address;
-	private TextView lunchName;
+	private AsyncImageLoader loader;
 		
 	public DistributionListItem(Context context) {
 		super(context);
@@ -25,11 +26,16 @@ public class DistributionListItem extends LinearLayout {
 		imageView = (ImageView) view.findViewById(R.id.lunchTodayPic);
 		name = (TextView) view.findViewById(R.id.distributionName);
 		address = (TextView) view.findViewById(R.id.distributionAddress);
-		lunchName = (TextView) view.findViewById(R.id.lunchName);
+		loader = new AsyncImageLoader();
 		addView(view);
 	}
 	public void updateview (DistributionSite site) {
 		name.setText(site.getName());
 		address.setText(site.getAddress());
+		CallbackImpl callbackImpl = new CallbackImpl(imageView);
+		Bitmap cacheImage = loader.loadImage(site.getThumbnailUrl(), callbackImpl);
+		if (cacheImage != null) {
+			imageView.setImageBitmap(cacheImage);
+		}
 	}
 }
