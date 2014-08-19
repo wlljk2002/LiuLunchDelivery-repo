@@ -1,5 +1,6 @@
 package com.techbow.liulunchdelivery.Utils;
 
+import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.HashMap;
@@ -76,7 +77,8 @@ public class AsyncImageLoader {
 	protected Bitmap loadImageFromUrl(String imageUrl) {
 		try {
 			//根据图片的URL，下载图片，并生成一个Drawable对象
-			return BitmapFactory.decodeStream(new URL(imageUrl).openStream());
+			InputStream is = new URL(imageUrl).openStream();
+			return BitmapFactory.decodeStream(is);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -142,13 +142,13 @@ public class FragmentMap extends Fragment {
 //						// TODO Auto-generated method stub
 //						Looper.prepare();
 //						final DistributionSite distribution = new DistributionSite();
-//						distribution.setSetTodayObjectId("53ee1a09e4b00eb68958aa0f");
-//						distribution.setSetTomorrowObjectId("53ee1a09e4b00eb68958aa0f");
-//						distribution.setSetThirdObjectId("53ee1a09e4b00eb68958aa0f");
-//						distribution.setSetFourthObjectId("53ee1a09e4b00eb68958aa0f");
-//						distribution.setSetFifthObjectId("53ee1a09e4b00eb68958aa0f");
+//						distribution.setSetTodayObjectId("53f35c6ce4b026a90a4189b9");
+//						distribution.setSetTomorrowObjectId("53f35c6ce4b026a90a4189b9");
+//						distribution.setSetThirdObjectId("53f35c6ce4b026a90a4189b9");
+//						distribution.setSetFourthObjectId("53f35c6ce4b026a90a4189b9");
+//						distribution.setSetFifthObjectId("53f35c6ce4b026a90a4189b9");
 //						try {
-//							AVFile pic = AVFile.withObjectId("53ee1321e4b00eb68958997b");
+//							AVFile pic = AVFile.withObjectId("53f35c69e4b026a90a4189ad");
 //							distribution.setThumbnailUrl(pic.getThumbnailUrl(false, 105, 105));
 //						} catch (FileNotFoundException e) {
 //							// TODO Auto-generated catch block

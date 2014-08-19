@@ -9,8 +9,12 @@
         android:layout_width="fill_parent"
         android:layout_height="300dp"
         android:alwaysDrawnWithCache="true"
-        android:drawingCacheQuality="high"
-        android:background="@drawable/lunch_example">
+        android:drawingCacheQuality="high">
+        <ImageView android:id="@+id/lunchImage"
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:visibility="visible"/>
         <RatingBar
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"

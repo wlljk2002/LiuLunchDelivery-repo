@@ -1,5 +1,8 @@
 package com.techbow.liulunchdelivery;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -7,12 +10,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVOSCloud;
 import com.baidu.mapapi.SDKInitializer;
+import com.techbow.liulunchdelivery.Utils.FileAccessor;
+import com.techbow.liulunchdelivery.parameter.LunchSet;
 
 public class ActivityListMap extends ActionBarActivity implements
 		ActionBar.TabListener, NavigationDrawerFragment.NavigationDrawerCallbacks{
@@ -113,29 +121,21 @@ public class ActivityListMap extends ActionBarActivity implements
 //			
 //			@Override
 //			public void run() {
-				// TODO Auto-generated method stub
-//				DistributionSite distribution = new DistributionSite();
-//				distribution.setName("上海交大");
-//				distribution.setAddress("闽行区东川路800号");
-//				distribution.setSetTodayObjectId("53ee1a09e4b00eb68958aa0f");
-//				distribution.setSetTomorrowObjectId("53ee1a09e4b00eb68958aa0f");
-//				distribution.setSetThirdObjectId("53ee1a09e4b00eb68958aa0f");
-//				distribution.setSetFourthObjectId("53ee1a09e4b00eb68958aa0f");
-//				distribution.setSetFifthObjectId("53ee1a09e4b00eb68958aa0f");
-//				DistributionGeo geo = new DistributionGeo();
-//				for(int i = 0; i < 11; i++) {
-//					
-//					geo.setPoint(new AVGeoPoint(i, i));
-//					geo.setDistributionSiteObjectId(distribution.saveToCloud());
-//					geo.saveToCloud();
-//				}
-//				String file = "http__s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
+//				// TODO Auto-generated method stub
+//				String file = "http___s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
 //				try {
 //					AVFile pic = AVFile.withFile(file, FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file));
 //					pic.save();
 //					Log.w("AvosFile", "object id =" + pic.getObjectId());
 //					String url = pic.getThumbnailUrl(false, 200, 100);
 //					Log.w("AvosFile", "url =" + url);
+//					Thread.sleep(3000);
+//					LunchSet set = new LunchSet();
+//					set.setName("黑椒牛排");
+//					set.setObjectId(pic.getObjectId());
+//					set.setThumbnailUrl(url);
+//					set.setPrice("27");
+//					set.saveToCloud();
 //				} catch (FileNotFoundException e) {
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
@@ -144,28 +144,12 @@ public class ActivityListMap extends ActionBarActivity implements
 //					e.printStackTrace();
 //				} catch (AVException e) {
 //					e.printStackTrace();
-//				}
-//				try {
-//					AVFile pic = AVFile.withObjectId("53ee1321e4b00eb68958997b");
-//					byte[] b = pic.getData();
-//					Log.w("AvosFile", "byte[] =" + b);
-//					String url = pic.getThumbnailUrl(false, 200, 200);
-//					LunchSet set = new LunchSet();
-//					set.setName("黑椒牛排");
-//					set.setObjectId("53ee1321e4b00eb68958997b");
-//					set.setThumbnailUrl(url);
-//					set.setPrice("27");
-//					set.saveToCloud();
-//				} catch (FileNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (AVException e) {
-//					// TODO Auto-generated catch block
+//				} catch (Exception e) {
+//					// TODO: handle exception
 //					e.printStackTrace();
 //				}
 //			}
 //		}).start();
-		
 	}
 	@Override
 	protected void onResume() {

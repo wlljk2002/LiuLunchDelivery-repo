@@ -9,7 +9,6 @@ import com.avos.avoscloud.AVObject;
 
 public class DistributionSite implements Serializable{
 	private static final long serialVersionUID = 2L;
-	private String geoPointObjectId;
 	private String name;
 	private String address;
 	private String setTodayObjectId;
@@ -21,7 +20,6 @@ public class DistributionSite implements Serializable{
 	
 	public DistributionSite() {
 		super();
-		geoPointObjectId = null;
 		name = null;
 		address = null;
 		setTodayObjectId = null;
@@ -32,12 +30,6 @@ public class DistributionSite implements Serializable{
 		thumbnailUrl = null;
 	}
 	
-	public String getGeoPointObjectId() {
-		return geoPointObjectId;
-	}
-	public void setGeoPointObjectId(String geoPointObjectId) {
-		this.geoPointObjectId = geoPointObjectId;
-	}
 	public String getName() {
 		return name;
 	}
@@ -89,7 +81,6 @@ public class DistributionSite implements Serializable{
 
 	public String saveToCloud() {
 		final AVObject distributeSite = new AVObject("DistributeSite");
-		distributeSite.put("geoPointObjectId", geoPointObjectId);
 		distributeSite.put("name", name);
 		distributeSite.put("address", address);
 		distributeSite.put("setTodayObjectId", setTodayObjectId);
