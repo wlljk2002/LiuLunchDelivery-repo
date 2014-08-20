@@ -6,8 +6,9 @@
     tools:context="com.techbow.liulunchdelivery.listmap.FragmentList" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="4"
         android:alwaysDrawnWithCache="true"
         android:drawingCacheQuality="high">
         <ImageView android:id="@+id/lunchImage"
@@ -20,11 +21,13 @@
         <RatingBar
             android:layout_alignParentBottom="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            style="@style/MyRatingBar"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dip"
+        android:layout_weight="1">
         <TextView
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -45,4 +48,17 @@
 	    android:layout_height="1px"
 	    android:background="@android:color/darker_gray"
 	    android:layout_width="fill_parent"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="4">
+        <EditText
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:text="ORDER"/>
 </LinearLayout>
