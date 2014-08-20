@@ -1,5 +1,11 @@
 package com.techbow.liulunchdelivery.lunch;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -10,17 +16,28 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.parameter.DistributionSite;
+import com.techbow.liulunchdelivery.parameter.LunchSet;
 
 public class ActivityLunch extends ActionBarActivity implements
 		ActionBar.TabListener {
 	private PagerAdapterLunch mSectionsPagerAdapter;
 	private ViewPager mViewPager;
 	private ActionBar actionBar;
+	public DistributionSite distributionSite;
+	public List<LunchSet> lunchSetList;
+	public List<Bitmap> bitmapList;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lunch);
+		Serializable obj = getIntent().getSerializableExtra("distributionSite");
+		distributionSite = (DistributionSite) obj;
+		lunchSetList = new ArrayList<LunchSet>();
+		bitmapList = new ArrayList<Bitmap>();
+		
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -44,18 +61,19 @@ public class ActivityLunch extends ActionBarActivity implements
 						actionBar.setSelectedNavigationItem(position);
 					}
 				});
+		new LunchAsyncTask(this, mSectionsPagerAdapter, actionBar).execute();
 		
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
-			ActionBar.Tab tab = actionBar.newTab().setCustomView(R.layout.actionbar_tab);
-			TextView text = (TextView) tab.getCustomView().findViewById(R.id.tab_title);
-			text.setText(mSectionsPagerAdapter.getPageTitle(i));
-			tab.setTabListener(this);
-			actionBar.addTab(tab);
-		}
+//		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+//			// Create a tab with text corresponding to the page title defined by
+//			// the adapter. Also specify this Activity object, which implements
+//			// the TabListener interface, as the callback (listener) for when
+//			// this tab is selected.
+//			ActionBar.Tab tab = actionBar.newTab().setCustomView(R.layout.actionbar_tab);
+//			TextView text = (TextView) tab.getCustomView().findViewById(R.id.tab_title);
+//			text.setText(mSectionsPagerAdapter.getPageTitle(i));
+//			tab.setTabListener(this);
+//			actionBar.addTab(tab);
+//		}
 	}
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
@@ -70,5 +88,10 @@ public class ActivityLunch extends ActionBarActivity implements
 	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		super.onConfigurationChanged(newConfig);
 	}
 }

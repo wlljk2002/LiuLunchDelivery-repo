@@ -69,6 +69,7 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 		} catch (AVException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 		for (AVObject place : nearPlaces) {
 			DistributionGeo geo = new DistributionGeo();
@@ -94,7 +95,6 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 			site.setSetFourthObjectId(objSite.getString("setFourthObjectId"));
 			site.setSetFifthObjectId(objSite.getString("setFifthObjectId"));
 			site.setThumbnailUrl(objSite.getString("thumbnailUrl"));
-			Log.w("URL", site.getThumbnailUrl());
 			distributionSiteList.add(site);
 		}
 		

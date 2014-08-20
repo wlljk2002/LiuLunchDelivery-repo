@@ -30,6 +30,30 @@ public class DistributionSite implements Serializable{
 		thumbnailUrl = null;
 	}
 	
+	public String getSomedayObjectId(int i) {
+		String objectId = null;
+		switch (i) {
+		case 0:
+			objectId = setTodayObjectId;
+			break;
+		case 1:
+			objectId = setTomorrowObjectId;
+			break;
+		case 2:
+			objectId = setThirdObjectId;
+			break;
+		case 3:
+			objectId = setFourthObjectId;
+			break;
+		case 4:
+			objectId = setFifthObjectId;
+			break;
+		default:
+			break;
+		}
+		return objectId;
+	}
+	
 	public String getName() {
 		return name;
 	}
