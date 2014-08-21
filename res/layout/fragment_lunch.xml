@@ -20,45 +20,56 @@
 			android:visibility="visible"/>
         <RatingBar
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/MyRatingBar"/>
     </RelativeLayout>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1">
-        <TextView
-            android:layout_alignParentLeft="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="一份便当三个菜外加一份饭"/>
-        <TextView
-            android:id="@+id/setPrice"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#B10004"
-            android:textSize="40sp"/>
-    </RelativeLayout>
-    <View
-	    android:layout_height="1px"
-	    android:background="@android:color/darker_gray"
-	    android:layout_width="fill_parent"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="4">
-        <EditText
-            android:layout_width="match_parent"
-        	android:layout_height="wrap_content"/>
-    </RelativeLayout>
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+    	android:paddingRight="10dp">
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="1">
+	        <TextView
+	            android:layout_alignParentLeft="true"
+	            android:textAppearance="?android:attr/textAppearanceMedium"
+	            android:layout_centerVertical="true"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="一份便当三个菜外加一份饭"/>
+	        <TextView
+	            android:id="@+id/setPrice"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/theme_red"
+	            android:textSize="40sp"/>
+	    </RelativeLayout>
+	    <View
+		    android:layout_height="1px"
+		    android:background="@android:color/darker_gray"
+		    android:layout_width="fill_parent"/>
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="0dip"
+	        android:layout_weight="4">
+	        <EditText
+	            android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"/>
+	    </RelativeLayout>
+	</LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:text="ORDER"/>
+        android:text="ORDER"
+        android:background="@color/theme_red"
+        android:textColor="@android:color/white"/>
 </LinearLayout>
