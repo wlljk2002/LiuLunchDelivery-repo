@@ -162,8 +162,8 @@ public class ActivityListMap extends ActionBarActivity implements
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		// update the main content by replacing fragments
-		mViewPager.setCurrentItem(position);
-		
+		//mViewPager.setCurrentItem(position);
+		//register, login, logout
 	}
 
 //	@Override

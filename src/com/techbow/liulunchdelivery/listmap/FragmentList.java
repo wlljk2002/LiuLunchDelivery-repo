@@ -48,7 +48,7 @@ public class FragmentList extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				DistributionSite site = (DistributionSite) distributionListView.getItemAtPosition(position);
-				Toast.makeText(getActivity(), "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getActivity(), ActivityLunch.class);
 				intent.putExtra("distributionSite", site);
 				startActivity(intent);

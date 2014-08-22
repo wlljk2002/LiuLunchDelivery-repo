@@ -155,7 +155,7 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
   			{
   				//获得marker中的数据
   				DistributionSite site = (DistributionSite) marker.getExtraInfo().getSerializable("distributionSite");
-				Toast.makeText(context, "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(context, "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(context, ActivityLunch.class);
 				intent.putExtra("distributionSite", site);
 				context.startActivity(intent);

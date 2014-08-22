@@ -31,7 +31,7 @@ public class DistributionListItem extends LinearLayout {
 	}
 	public void updateview (DistributionSite site) {
 		name.setText(site.getName());
-		address.setText(site.getAddress());
+		address.setText("µÿ\t\t\t\t÷∑: " + site.getAddress());
 		CallbackImpl callbackImpl = new CallbackImpl(imageView);
 		Bitmap cacheImage = loader.loadImage(site.getThumbnailUrl(), callbackImpl);
 		if (cacheImage != null) {

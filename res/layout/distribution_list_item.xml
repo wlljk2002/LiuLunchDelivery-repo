@@ -2,12 +2,18 @@
     android:orientation="horizontal" android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 	<ImageView android:id="@+id/lunchTodayPic" android:layout_width="105dp"
-		android:layout_height="105dp" android:visibility="visible"/>
+		android:layout_height="105dp" android:visibility="visible"
+		android:paddingLeft="10dp" android:paddingTop="10dp" android:paddingBottom="10dp"/>
 	<LinearLayout android:orientation="vertical" android:layout_height="105dp"
-	    android:layout_width="wrap_content">
+	    android:layout_width="wrap_content" android:paddingLeft="10dp"
+	    android:paddingTop="10dp" android:paddingBottom="10dp"
+	    android:textAppearance="?android:attr/textAppearanceMedium">
 		<TextView android:id="@+id/distributionName" android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" />
+		    android:layout_height="wrap_content" android:textColor="@color/theme_red"
+		    android:textAppearance="?android:attr/textAppearanceLarge"/>
 		<TextView android:id="@+id/distributionAddress" android:layout_width="wrap_content"
 		    android:layout_height="wrap_content" />
+		<TextView android:id="@+id/distributionTime" android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" android:text="送饭时间: 11:00-12:00"/>
 	</LinearLayout>
 </LinearLayout>

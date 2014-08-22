@@ -11,7 +11,7 @@
         android:layout_weight="4"
         android:alwaysDrawnWithCache="true"
         android:drawingCacheQuality="high">
-        <ImageView android:id="@+id/lunchImage"
+        <ImageView android:id="@+id/setImage"
             android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
 			android:layout_alignParentTop="true"
@@ -37,12 +37,12 @@
 	        android:layout_height="0dip"
 	        android:layout_weight="1">
 	        <TextView
+	            android:id="@+id/setName"
 	            android:layout_alignParentLeft="true"
-	            android:textAppearance="?android:attr/textAppearanceMedium"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:layout_centerVertical="true"
 	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:text="一份便当三个菜外加一份饭"/>
+	            android:layout_height="wrap_content"/>
 	        <TextView
 	            android:id="@+id/setPrice"
 	            android:layout_alignParentRight="true"
@@ -50,22 +50,108 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textColor="@color/theme_red"
-	            android:textSize="40sp"/>
+	            android:textSize="30sp"/>
 	    </RelativeLayout>
 	    <View
 		    android:layout_height="1px"
 		    android:background="@android:color/darker_gray"
 		    android:layout_width="fill_parent"/>
-	    <RelativeLayout
+	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="4">
-	        <EditText
+	        android:layout_weight="4"
+	        android:orientation="vertical">
+	        <RelativeLayout
 	            android:layout_width="match_parent"
-	        	android:layout_height="wrap_content"/>
-	    </RelativeLayout>
+	            android:layout_height="0dip"
+	            android:layout_weight="1">
+	            <ImageView
+	                android:id="@+id/imageOrder"
+	                android:layout_alignParentLeft="true"
+	                android:background="@drawable/order"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <TextView
+	                android:layout_toRightOf="@id/imageOrder"
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:text="I want to order"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <ImageView
+	                android:id="@+id/imageMinus"
+	                android:layout_alignParentRight="true"
+	                android:background="@drawable/minus"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <EditText
+	                android:id="@+id/editOrder"
+	                android:layout_toLeftOf="@id/imageMinus"
+	                android:layout_width="100dp"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"
+	            	android:text="0"
+	            	android:inputType="number"
+	            	android:gravity="center_horizontal"/>
+	            <ImageView
+	                android:id="@+id/imageAdd"
+	                android:layout_toLeftOf="@id/editOrder"
+	                android:background="@drawable/add"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	        </RelativeLayout>
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="0dip"
+	            android:layout_weight="1">
+	            <ImageView
+	                android:id="@+id/imageMessage"
+	                android:layout_alignParentLeft="true"
+	                android:background="@drawable/message"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <ImageView
+	                android:id="@+id/imageShare"
+	                android:layout_alignParentRight="true"
+	                android:background="@drawable/go"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <TextView
+	                android:layout_toRightOf="@id/imageMessage"
+	                android:textAppearance="?android:attr/textAppearanceMedium"
+	                android:text="Share and give comments..."
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	        </RelativeLayout>
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="0dip"
+	            android:layout_weight="1">
+	            <ImageView
+	                android:id="@+id/imagePhone"
+	                android:layout_alignParentLeft="true"
+	                android:background="@drawable/phone"
+	                android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"/>
+	            <EditText
+	                android:layout_toRightOf="@id/imagePhone"
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content"
+	            	android:layout_centerVertical="true"
+	            	android:hint="Input phone number"
+	            	android:inputType="number"/>
+	        </RelativeLayout>
+	    </LinearLayout>
 	</LinearLayout>
     <Button
+        android:id="@+id/order"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
