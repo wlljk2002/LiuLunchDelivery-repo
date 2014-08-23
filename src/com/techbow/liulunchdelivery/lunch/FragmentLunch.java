@@ -9,6 +9,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.GetFileCallback;
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.parameter.LunchOrder;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
 
 import android.content.Intent;
@@ -38,13 +39,16 @@ public class FragmentLunch extends Fragment {
 	private ImageView imageMinus;
 	private EditText editOrder;
 	private ImageView imageShare;
+	private EditText editPhone;
 	private Button order;
 	private LunchSet lunchSet;
 	private Bitmap bitmap;
+	private int date;
 	
-	public static FragmentLunch newInstance(LunchSet lunchSet, Bitmap bitmap) {  
+	public static FragmentLunch newInstance(int date, LunchSet lunchSet, Bitmap bitmap) {  
 		FragmentLunch fragment = new FragmentLunch();  
-        Bundle bundle = new Bundle();  
+        Bundle bundle = new Bundle();
+        bundle.putInt("date", date);
         bundle.putSerializable("lunchSet", lunchSet);  
         bundle.putParcelable("bitmap", bitmap);  
         fragment.setArguments(bundle);  
@@ -63,6 +67,7 @@ public class FragmentLunch extends Fragment {
 		imageMinus = (ImageView) rootView.findViewById(R.id.imageMinus);
 		editOrder = (EditText) rootView.findViewById(R.id.editOrder);
 		imageShare = (ImageView) rootView.findViewById(R.id.imageShare);
+		editPhone = (EditText) rootView.findViewById(R.id.editPhone);
 		order = (Button) rootView.findViewById(R.id.order);
 //		AVFile.withObjectIdInBackground("53f35c69e4b026a90a4189ad", new GetFileCallback<AVFile>() {
 //			
@@ -81,6 +86,7 @@ public class FragmentLunch extends Fragment {
 //			}
 //		});
 		Bundle bundle = getArguments();
+		date = bundle.getInt("date");
 		lunchSet = (LunchSet) bundle.getSerializable("lunchSet");
 		bitmap = bundle.getParcelable("bitmap");
 		setImage.setImageBitmap(bitmap);
@@ -124,7 +130,13 @@ public class FragmentLunch extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				LunchOrder order = new LunchOrder();
+				order.setDistributionSiteObjectId(((ActivityLunch)getActivity()).distributionSiteObjectId);
+				order.setSetObjectId(((ActivityLunch)getActivity()).distributionSite.getSomedayObjectId(date));
+				order.setDate(String.valueOf(date));
+				order.setMount(editOrder.getText().toString());
+				order.setPhone(editPhone.getText().toString());
+				order.saveToCloud(getActivity());
 			}
 		});
 		return rootView;

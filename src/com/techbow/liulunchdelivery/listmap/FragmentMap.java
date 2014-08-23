@@ -31,6 +31,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
 import com.techbow.liulunchdelivery.parameter.DistributionGeo;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
@@ -41,6 +42,7 @@ public class FragmentMap extends Fragment {
 	/** 当前定位的数据 */
 	static public MyLocationData locationData = null;
 	private boolean isFirstLocate = true;
+	public LoadingAndWaitDialog dialog;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +59,7 @@ public class FragmentMap extends Fragment {
 	    option.setCoorType("bd09ll");//返回的定位结果是百度经纬度,默认值gcj02
 	    option.setOpenGps(true); // 打开GPS
 	    option.setTimeOut(10 * 1000); // 超时
-	    option.setScanSpan(60 * 1000);//设置发起定位请求的间隔时间为5000ms
+	    //option.setScanSpan(60 * 1000);//设置发起定位请求的间隔时间为5000ms
 	    option.setIsNeedAddress(true);//返回的定位结果包含地址信息
 	    option.setNeedDeviceDirect(true);//返回的定位结果包含手机机头的方向
 	    mLocationClient.setLocOption(option);
@@ -72,7 +74,10 @@ public class FragmentMap extends Fragment {
 	    mMapView.getMap().setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder(mMapView.getMap().getMapStatus()).zoom(16).build())); // 设置放大等级为16
 		// 配置定位图层显示方式,一定要开启了定位图层后再设置
 	    mMapView.getMap().setMyLocationConfigeration(new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, null)); // 设置为跟随模式,显示手机方向的箭头
-		return rootView;
+		dialog = new LoadingAndWaitDialog(getActivity());
+		dialog.changeStatusWord("Locating your position, please wait...");
+		dialog.show();
+	    return rootView;
 	}
 	
 	public class MyLocationListener implements BDLocationListener {
@@ -127,12 +132,12 @@ public class FragmentMap extends Fragment {
 			// 设置定位数据到定位图层上,就是显示当前位置的那个点和圆圈
 			mMapView.getMap().setMyLocationData(locationData);
  
-			LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-			
-			// 基于原来的status上改变指定的参数
-			MapStatus mapStatus = new MapStatus.Builder(mMapView.getMap().getMapStatus()).target(point).build();
-			MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
-			mMapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
+//			LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
+//			
+//			// 基于原来的status上改变指定的参数
+//			MapStatus mapStatus = new MapStatus.Builder(mMapView.getMap().getMapStatus()).target(point).build();
+//			MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+//			mMapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
  			
 // 			for (int i = 0; i < 11; i++) {
 // 				final int idx = i;

@@ -9,6 +9,9 @@ import com.avos.avoscloud.AVQuery;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -16,6 +19,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.techbow.liulunchdelivery.ActivityListMap;
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
 import com.techbow.liulunchdelivery.lunch.ActivityLunch;
 import com.techbow.liulunchdelivery.parameter.DistributionGeo;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
@@ -35,6 +39,7 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 	private DistributionListViewAdapter distributionListViewAdapter;
 	private Context context;
 	private MapView mapView;
+	private LoadingAndWaitDialog dialog;
 
 	public DistributionListMapAsyncTask(
 			List<DistributionSite> distributionSiteList,
@@ -55,6 +60,16 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 		distributionSiteList.clear();	//this would also clear the adapter
 		distributionGeoList.clear();
 		distributionListViewAdapter.notifyDataSetChanged();
+		
+		// first we need to get mapview reference from context, complicated...
+		ActivityListMap activity = (ActivityListMap) context;
+		ViewPager pager = (ViewPager)activity.findViewById(R.id.listMapPager);
+		FragmentPagerAdapter f = (FragmentPagerAdapter) pager.getAdapter();
+		FragmentMap fragmentMap = (FragmentMap)f.instantiateItem(pager, 1);
+		mapView = fragmentMap.mMapView;
+		mapView.getMap().clear();
+		dialog = fragmentMap.dialog;
+		dialog.changeStatusWord("Loading near lunch distibution sites, please wait...");
 	}
 	@Override
 	protected Void doInBackground(Void... arg0) {
@@ -121,18 +136,12 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 		super.onPostExecute(result);
 		if (distributionSiteList.size() == 0) {
 			Toast.makeText(context, "Network seems not working, please take a check and try again...", Toast.LENGTH_LONG).show();
+			dialog.hide();
 			return;
 		}
 		distributionListViewAdapter.notifyDataSetChanged();
 		
-		// first we need to get mapview reference from context, complicated...
-		ActivityListMap activity = (ActivityListMap) context;
-		ViewPager pager = (ViewPager)activity.findViewById(R.id.listMapPager);
-		FragmentPagerAdapter f = (FragmentPagerAdapter) pager.getAdapter();
-		FragmentMap fragmentMap = (FragmentMap)f.instantiateItem(pager, 1);
-		mapView = fragmentMap.mMapView;
-		mapView.getMap().clear();
-        LatLng latLng = null;
+		LatLng latLng = null;
         OverlayOptions overlayOptions = null;
         Marker marker = null;
         //构建Marker图标  
@@ -143,11 +152,12 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
             // 图标  
             overlayOptions = new MarkerOptions().position(latLng).icon(markerIcon).zIndex(5);  
             marker = (Marker) (mapView.getMap().addOverlay(overlayOptions));  
-            Bundle bundle = new Bundle();  
-            bundle.putSerializable("distributionSite", distributionSiteList.get(i));  
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("distributionSite", distributionSiteList.get(i));
+            bundle.putString("distributionSiteObjectId", distributionGeoList.get(i).getDistributionSiteObjectId());
             marker.setExtraInfo(bundle);
 		}
-      //对Marker的点击
+        //对Marker的点击
         mapView.getMap().setOnMarkerClickListener(new OnMarkerClickListener()
   		{
   			@Override
@@ -158,10 +168,18 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 				//Toast.makeText(context, "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(context, ActivityLunch.class);
 				intent.putExtra("distributionSite", site);
+				intent.putExtra("distributionSiteObjectId", marker.getExtraInfo().getString("distributionSiteObjectId"));
 				context.startActivity(intent);
   				return true;
   			}
   		});
+        LatLng point = new LatLng(distributionGeoList.get(0).getPoint().getLatitude(), distributionGeoList.get(0).getPoint().getLongitude());
+		
+		// 基于原来的status上改变指定的参数
+		MapStatus mapStatus = new MapStatus.Builder(mapView.getMap().getMapStatus()).target(point).build();
+		MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+		mapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
+		
+		dialog.hide();
 	}
-
 }

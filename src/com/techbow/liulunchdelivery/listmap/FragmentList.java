@@ -51,6 +51,7 @@ public class FragmentList extends Fragment {
 				//Toast.makeText(getActivity(), "site " + site.getName() + " is chosen", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getActivity(), ActivityLunch.class);
 				intent.putExtra("distributionSite", site);
+				intent.putExtra("distributionSiteObjectId", distributionGeoList.get(position).getDistributionSiteObjectId());
 				startActivity(intent);
 			}
 		});

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.parameter.DistributionGeo;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
 
@@ -26,6 +27,7 @@ public class ActivityLunch extends ActionBarActivity implements
 	private PagerAdapterLunch mSectionsPagerAdapter;
 	private ViewPager mViewPager;
 	private ActionBar actionBar;
+	public String distributionSiteObjectId;
 	public DistributionSite distributionSite;
 	public List<LunchSet> lunchSetList;
 	public List<Bitmap> bitmapList;
@@ -35,6 +37,7 @@ public class ActivityLunch extends ActionBarActivity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lunch);
+		distributionSiteObjectId = getIntent().getStringExtra("distributionSiteObjectId");
 		Serializable obj = getIntent().getSerializableExtra("distributionSite");
 		distributionSite = (DistributionSite) obj;
 		lunchSetList = new ArrayList<LunchSet>();

@@ -8,9 +8,11 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.techbow.liulunchdelivery.R;
+import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +28,7 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 	private List<Bitmap> bitmapList;
 	private PagerAdapterLunch pagerAdapter;
 	private ActionBar actionBar;
+	private LoadingAndWaitDialog dialog;
 	
 	public LunchAsyncTask(Context context, PagerAdapterLunch pagerAdapter, ActionBar actionBar) {
 		super();
@@ -43,6 +46,9 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 		lunchSetList.clear();
 		bitmapList.clear();
 		pagerAdapter.notifyDataSetChanged();
+		dialog = new LoadingAndWaitDialog((Activity)context);
+		dialog.changeStatusWord("Loading lunch set information, please wait a bit...");
+		dialog.show();
 	}
 	@Override
 	protected Void doInBackground(Void... arg0) {
@@ -75,7 +81,8 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 		if (lunchSetList.size() == 0) {
-			Toast.makeText(context, "Network seems not working, please take a check and try again...", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, "Server is not responding, please take a check and try again...", Toast.LENGTH_LONG).show();
+			dialog.hide();
 			return;
 		}
 		pagerAdapter.notifyDataSetChanged();
@@ -90,5 +97,6 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 			tab.setTabListener((ActivityLunch)context);
 			actionBar.addTab(tab);
 		}
+		dialog.hide();
 	}
 }

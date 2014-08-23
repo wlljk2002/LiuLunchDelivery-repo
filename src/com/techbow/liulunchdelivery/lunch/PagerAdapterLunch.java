@@ -26,7 +26,7 @@ public class PagerAdapterLunch extends FragmentPagerAdapter {
 	@Override
 	public Fragment getItem(int position) {
 		// TODO Auto-generated method stub
-		return FragmentLunch.newInstance(lunchSetList.get(position), bitmapList.get(position));
+		return FragmentLunch.newInstance(position, lunchSetList.get(position), bitmapList.get(position));
 	}
 
 	@Override
