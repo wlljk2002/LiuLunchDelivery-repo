@@ -3,6 +3,7 @@ package com.techbow.liulunchdelivery;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,11 +15,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
 import com.baidu.mapapi.SDKInitializer;
 import com.techbow.liulunchdelivery.Utils.FileAccessor;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
@@ -164,6 +167,33 @@ public class ActivityListMap extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		//mViewPager.setCurrentItem(position);
 		//register, login, logout
+		AVUser currentUser = AVUser.getCurrentUser();
+		switch (position) {
+		case 0:
+			if (currentUser != null) {
+				Toast.makeText(this, "You are already login...", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			startActivity(new Intent(this, ActivityRegister.class));
+			break;
+		case 1:
+			if (currentUser != null) {
+				Toast.makeText(this, "You are already login...", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			startActivity(new Intent(this, ActivityLogin.class));
+			break;
+		case 2:
+			if (currentUser == null) {
+				Toast.makeText(this, "You are already logout...", Toast.LENGTH_SHORT).show();
+			} else {
+				AVUser.logOut();
+				Toast.makeText(this, "Logout is done!", Toast.LENGTH_SHORT).show();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 //	@Override

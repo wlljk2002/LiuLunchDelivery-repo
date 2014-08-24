@@ -15,7 +15,7 @@ public class LunchOrder implements Serializable{
 	private String distributionSiteObjectId;
 	private String setObjectId;
 	private String date;
-	private String mount;
+	private String amount;
 	private String phone;
 	private String userObjectId;
 	
@@ -24,7 +24,7 @@ public class LunchOrder implements Serializable{
 		distributionSiteObjectId = null;
 		setObjectId = null;
 		date = null;
-		mount = null;
+		amount = null;
 		phone = null;
 		userObjectId = null;
 	}
@@ -47,11 +47,11 @@ public class LunchOrder implements Serializable{
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getMount() {
-		return mount;
+	public String getAmount() {
+		return amount;
 	}
-	public void setMount(String mount) {
-		this.mount = mount;
+	public void setAmount(String mount) {
+		this.amount = mount;
 	}
 	public String getPhone() {
 		return phone;
@@ -71,7 +71,7 @@ public class LunchOrder implements Serializable{
 		lunchSet.put("distributionSiteObjectId", distributionSiteObjectId);
 		lunchSet.put("setObjectId", setObjectId);
 		lunchSet.put("date", date);
-		lunchSet.put("mount", mount);
+		lunchSet.put("amount", amount);
 		lunchSet.put("phone", phone);
 		lunchSet.put("userObjectId", userObjectId);
 		lunchSet.saveInBackground(new SaveCallback() {

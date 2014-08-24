@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetDataCallback;
 import com.avos.avoscloud.GetFileCallback;
 import com.techbow.liulunchdelivery.R;
@@ -92,6 +93,10 @@ public class FragmentLunch extends Fragment {
 		setImage.setImageBitmap(bitmap);
 		setName.setText(lunchSet.getName());
 		setPrice.setText("$ " + lunchSet.getPrice());
+		AVUser currentUser = AVUser.getCurrentUser();
+		if (currentUser != null) {
+			editPhone.setText(currentUser.getUsername());
+		}
 		imageAdd.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -130,11 +135,20 @@ public class FragmentLunch extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				int amount = Integer.valueOf(editOrder.getText().toString()).intValue();
+				if (amount == 0) {
+					Toast.makeText(getActivity(), "Order amount is not supposed to be 0...",  Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (editPhone.getText() == null) {
+					Toast.makeText(getActivity(), "Please input your phone number...",  Toast.LENGTH_SHORT).show();
+					return;
+				}
 				LunchOrder order = new LunchOrder();
 				order.setDistributionSiteObjectId(((ActivityLunch)getActivity()).distributionSiteObjectId);
 				order.setSetObjectId(((ActivityLunch)getActivity()).distributionSite.getSomedayObjectId(date));
 				order.setDate(String.valueOf(date));
-				order.setMount(editOrder.getText().toString());
+				order.setAmount(editOrder.getText().toString());
 				order.setPhone(editPhone.getText().toString());
 				order.saveToCloud(getActivity());
 			}
