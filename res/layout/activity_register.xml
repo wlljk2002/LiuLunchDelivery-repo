@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+    <!-- black layout, just keep the place -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+    	<EditText
+	        android:id="@+id/editAccount"
+	        android:layout_alignParentLeft="true"
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:drawableLeft="@drawable/account"
+	    	android:hint="Input phone number"
+	    	android:inputType="number"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+    	<EditText
+	        android:id="@+id/editCode"
+	        android:drawableLeft="@drawable/code"
+	        android:layout_width="0dip"
+	        android:layout_weight="3"
+	    	android:layout_height="wrap_content"
+	    	android:hint="Identify code"
+	    	android:inputType="number"/>
+    	<Button
+    	    android:id="@+id/buttonCode"
+    	    android:layout_width="0dip"
+	        android:layout_weight="2"
+	    	android:layout_height="wrap_content"
+	    	android:text="GET CODE"
+	    	android:background="@drawable/register_button"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+    	<EditText
+	        android:id="@+id/editPassword"
+	        android:layout_alignParentLeft="true"
+	        android:drawableLeft="@drawable/password"
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:hint="Input password"
+	    	android:password="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+    	<EditText
+	        android:id="@+id/editPasswordAgain"
+	        android:layout_alignParentLeft="true"
+	        android:drawableLeft="@drawable/password"
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:hint="Input password again"
+	    	android:password="true"/>
+    </RelativeLayout>
+    <!-- black layout, just keep the place -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:text="SIGN UP"
+        android:background="@color/theme_red"
+        android:textColor="@android:color/white"/>
+    <!-- black layout, just keep the place -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="2">
+	    <ImageView
+	        android:layout_width="match_parent"
+	   	    android:layout_height="match_parent"
+	   	    android:scaleType="fitCenter"
+	   	    android:layout_centerHorizontal="true"
+	   	    android:layout_alignParentBottom="true"
+	   	    android:src="@drawable/half_logo"/>
+    </RelativeLayout>
+</LinearLayout>

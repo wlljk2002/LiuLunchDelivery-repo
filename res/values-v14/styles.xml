@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme for API 14+. This theme completely replaces
@@ -8,12 +8,18 @@
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- API 14 theme customizations can go here. -->
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
+        <item name="android:actionBarTabStyle">@style/my_actionbar_tab_style</item>
     </style>
     
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@android:color/holo_blue_light</item>
-        <item name="android:backgroundStacked">@android:color/darker_gray</item>
-        
+        <item name="android:background">@color/theme_red</item>
+        <item name="android:backgroundStacked">@color/thin_grey</item>
+        <item name="android:displayOptions"></item> <!--  get rid of home icon, title -->
+        <item name="android:divider">@null</item>
+        <item name="android:dividerPadding">0dp</item>
     </style>
 
+    <style name="my_actionbar_tab_style" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_background_select</item>
+    </style>
 </resources>
