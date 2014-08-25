@@ -7,20 +7,20 @@ import android.util.Log;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.SaveCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 
 public class LunchSet implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private String picObjectId;	//according AVFile pic;
-	private String thumbnailUrl;
+	private String url;
 	private String price;
 	
 	public LunchSet() {
 		super();
 		// TODO Auto-generated constructor stub
 		name = null;
-		picObjectId = null;
-		thumbnailUrl = null;
+		url = null;
 		price = null;
 	}
 	
@@ -30,17 +30,11 @@ public class LunchSet implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getObjectId() {
-		return picObjectId;
+	public String getUrl() {
+		return url;
 	}
-	public void setObjectId(String objectId) {
-		this.picObjectId = objectId;
-	}
-	public String getThumbnailUrl() {
-		return thumbnailUrl;
-	}
-	public void setThumbnailUrl(String thumbnailUrl) {
-		this.thumbnailUrl = thumbnailUrl;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public String getPrice() {
 		return price;
@@ -50,18 +44,17 @@ public class LunchSet implements Serializable{
 	}
 
 	public void saveToCloud() {
-		AVObject lunchSet = new AVObject("LunchSet");
+		ParseObject lunchSet = new ParseObject("LunchSet");
 		lunchSet.put("name", name);
-		lunchSet.put("picObjectId", picObjectId);
-		lunchSet.put("thumbnailUrl", thumbnailUrl);
+		lunchSet.put("url", url);
 		lunchSet.put("price", price);
-		lunchSet.saveInBackground(new SaveCallback() {
+		lunchSet.saveInBackground(new com.parse.SaveCallback() {
 			
 			@Override
-			public void done(AVException e) {
+			public void done(ParseException e) {
 				// TODO Auto-generated method stub
 				if (e != null) {
-					Log.w("Avos", "save in background fail");
+					Log.w("Parse", "save in background fail");
 				}
 			}
 		});

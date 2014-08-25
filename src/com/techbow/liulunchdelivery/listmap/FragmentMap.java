@@ -125,7 +125,7 @@ public class FragmentMap extends Fragment {
 				.latitude(location.getLatitude()).longitude(location.getLongitude()) // ¾­Î³¶È
 				.speed(location.getSpeed()).build();
 			if(isFirstLocate) {
-				FragmentList.asyncTask.execute();
+				//FragmentList.asyncTask.execute();
 				isFirstLocate = false;
 			}
 			

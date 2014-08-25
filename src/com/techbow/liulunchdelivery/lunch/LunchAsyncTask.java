@@ -1,6 +1,9 @@
 package com.techbow.liulunchdelivery.lunch;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import com.avos.avoscloud.AVException;
@@ -61,17 +64,19 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 				lunch = query.get(distributionSite.getSomedayObjectId(i));
 				LunchSet set = new LunchSet();
 				set.setName(lunch.getString("name"));
-				set.setObjectId(lunch.getString("picObjectId"));
 				set.setPrice(lunch.getString("price"));
-				set.setThumbnailUrl(lunch.getString("thumbnailUrl"));
-				pic = AVFile.withObjectId(set.getObjectId());
-				Bitmap bm = BitmapFactory.decodeStream(new ByteArrayInputStream(pic.getData()));
+				set.setUrl(lunch.getString("url"));
+				Bitmap bm = BitmapFactory.decodeStream(new URL(set.getUrl()).openStream());
 				lunchSetList.add(set);
 				bitmapList.add(bm);
 			}
 		} catch (AVException e) {
 		    e.printStackTrace();
-		} catch (java.io.FileNotFoundException e) {
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

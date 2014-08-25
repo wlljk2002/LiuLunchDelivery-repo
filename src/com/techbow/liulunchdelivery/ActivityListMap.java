@@ -1,7 +1,10 @@
 package com.techbow.liulunchdelivery;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -23,6 +26,9 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.baidu.mapapi.SDKInitializer;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.techbow.liulunchdelivery.Utils.FileAccessor;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
 
@@ -121,39 +127,44 @@ public class ActivityListMap extends ActionBarActivity implements
 		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
 		AVAnalytics.trackAppOpened(getIntent());
 		
-//		new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				String file = "http___s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
-//				try {
-//					AVFile pic = AVFile.withFile(file, FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file));
-//					pic.save();
-//					Log.w("AvosFile", "object id =" + pic.getObjectId());
-//					String url = pic.getThumbnailUrl(false, 200, 100);
-//					Log.w("AvosFile", "url =" + url);
-//					Thread.sleep(3000);
-//					LunchSet set = new LunchSet();
-//					set.setName("黑椒牛排");
-//					set.setObjectId(pic.getObjectId());
-//					set.setThumbnailUrl(url);
-//					set.setPrice("27");
-//					set.saveToCloud();
-//				} catch (FileNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (AVException e) {
-//					e.printStackTrace();
-//				} catch (Exception e) {
-//					// TODO: handle exception
-//					e.printStackTrace();
-//				}
-//			}
-//		}).start();
+		Parse.initialize(this, "oHwqgaN3HA2hz8j1AbO97RpuEvQWB91OuMhlM0Q4", "zZAMlIYRbsUYuj6rJwELovKFLIc1tpOAWY2AOhJs");
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				String file = "http___s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
+				try {
+					File f = FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file);
+					InputStream in = new FileInputStream(f);  
+			        byte b[] = new byte[(int)f.length()];     //创建合适文件大小的数组  
+			        in.read(b);    //读取文件中的内容到b[]数组  
+			        in.close();  
+					ParseFile pic = new ParseFile(b, "jpg");
+					pic.save();
+					String url = pic.getUrl();
+					Log.w("ParseFile", "url =" + url);
+					Thread.sleep(3000);
+					LunchSet set = new LunchSet();
+					set.setName("黑椒牛排");
+					set.setUrl(url);
+					set.setPrice("27");
+					set.saveToCloud();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	@Override
 	protected void onResume() {
