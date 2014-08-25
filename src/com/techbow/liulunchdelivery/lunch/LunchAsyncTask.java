@@ -10,6 +10,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
 import com.techbow.liulunchdelivery.parameter.DistributionSite;
@@ -56,9 +59,8 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		// TODO Auto-generated method stub
-		AVQuery<AVObject> query = new AVQuery<AVObject>("LunchSet");
-		AVObject lunch;
-		AVFile pic;
+		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("LunchSet");
+		ParseObject lunch;
 		try {
 			for (int i = 0; i < 5; i++) {
 				lunch = query.get(distributionSite.getSomedayObjectId(i));
@@ -70,7 +72,7 @@ public class LunchAsyncTask extends AsyncTask<Void, Void, Void> {
 				lunchSetList.add(set);
 				bitmapList.add(bm);
 			}
-		} catch (AVException e) {
+		} catch (ParseException e) {
 		    e.printStackTrace();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -6,9 +6,12 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.SaveCallback;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
 public class DistributionGeo {
-	private AVGeoPoint point;
+	private ParseGeoPoint point;
 	private String distributionSiteObjectId;
 	public DistributionGeo() {
 		super();
@@ -16,10 +19,10 @@ public class DistributionGeo {
 		point = null;
 		distributionSiteObjectId = null;
 	}
-	public AVGeoPoint getPoint() {
+	public ParseGeoPoint getPoint() {
 		return point;
 	}
-	public void setPoint(AVGeoPoint point) {
+	public void setPoint(ParseGeoPoint point) {
 		this.point = point;
 	}
 	public String getDistributionSiteObjectId() {
@@ -30,18 +33,18 @@ public class DistributionGeo {
 	}
 	
 	public void saveToCloud() {
-		final AVObject distributeSite = new AVObject("DistributionGeo");
+		final ParseObject distributeSite = new ParseObject("DistributionGeo");
 		distributeSite.put("point", point);
 		distributeSite.put("distributionSiteObjectId", distributionSiteObjectId);
-		distributeSite.saveInBackground(new SaveCallback() {
+		distributeSite.saveInBackground(new com.parse.SaveCallback() {
 			
 			@Override
-			public void done(AVException e) {
+			public void done(ParseException e) {
 				// TODO Auto-generated method stub
 				if (e == null) {
-					Log.w("Avos", "object id =" + distributeSite.getObjectId());
+					Log.w("Parse", "object id =" + distributeSite.getObjectId());
 				} else {
-					Log.w("Avos", "save in background fail");
+					Log.w("Parse", "save in background fail");
 				}
 			}
 		});

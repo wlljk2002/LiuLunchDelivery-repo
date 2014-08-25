@@ -17,6 +17,10 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.techbow.liulunchdelivery.ActivityListMap;
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
@@ -74,30 +78,30 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... arg0) {
 		// TODO Auto-generated method stub
-		AVGeoPoint curLoc = new AVGeoPoint(FragmentMap.locationData.latitude, FragmentMap.locationData.longitude);
-		AVQuery<AVObject> queryGeo = new AVQuery<AVObject>("DistributionGeo");
+		ParseGeoPoint curLoc = new ParseGeoPoint(FragmentMap.locationData.latitude, FragmentMap.locationData.longitude);
+		ParseQuery<ParseObject> queryGeo = new ParseQuery<ParseObject>("DistributionGeo");
 		queryGeo.whereNear("point", curLoc);
 		queryGeo.setLimit(6); //获取最接近用户地点的6条数据
-		List<AVObject> nearPlaces = null;
+		List<ParseObject> nearPlaces = null;
 		try {
 			nearPlaces = queryGeo.find();
-		} catch (AVException e) {
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		for (AVObject place : nearPlaces) {
+		for (ParseObject place : nearPlaces) {
 			DistributionGeo geo = new DistributionGeo();
-			geo.setPoint(place.getAVGeoPoint("point"));
+			geo.setPoint(place.getParseGeoPoint("point"));
 			geo.setDistributionSiteObjectId(place.getString("distributionSiteObjectId"));
 			Log.w("Geo", "Geo point (" + geo.getPoint().getLatitude() + "," + geo.getPoint().getLongitude() + ")");
 			distributionGeoList.add(geo);
 			
-			AVQuery<AVObject> querySite = new AVQuery<AVObject>("DistributeSite");
-			AVObject objSite = null;
+			ParseQuery<ParseObject> querySite = new ParseQuery<ParseObject>("DistributeSite");
+			ParseObject objSite = null;
 			try {
 				objSite = querySite.get(geo.getDistributionSiteObjectId());
-			} catch (AVException e) {
+			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -112,22 +116,6 @@ public class DistributionListMapAsyncTask extends AsyncTask<Void, Void, Void> {
 			site.setThumbnailUrl(objSite.getString("thumbnailUrl"));
 			distributionSiteList.add(site);
 		}
-		
-//		AVQuery<AVObject> query = new AVQuery<AVObject>("DistributeSite");
-//		List<AVObject> objects = null;
-//		query.setLimit(10);
-//		try {
-//			objects = query.find();
-//		} catch (AVException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		for (AVObject obj : objects) {
-//			DistributionSite site = new DistributionSite();
-//			site.setName(obj.getString("name"));
-//			site.setAddress(obj.getString("address"));
-//			distributionSiteList.add(site);
-//		}
 		return null;
 	}
 	@Override

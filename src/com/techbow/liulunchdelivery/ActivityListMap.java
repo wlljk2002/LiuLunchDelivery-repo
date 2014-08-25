@@ -129,42 +129,42 @@ public class ActivityListMap extends ActionBarActivity implements
 		
 		Parse.initialize(this, "oHwqgaN3HA2hz8j1AbO97RpuEvQWB91OuMhlM0Q4", "zZAMlIYRbsUYuj6rJwELovKFLIc1tpOAWY2AOhJs");
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				String file = "http___s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
-				try {
-					File f = FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file);
-					InputStream in = new FileInputStream(f);  
-			        byte b[] = new byte[(int)f.length()];     //创建合适文件大小的数组  
-			        in.read(b);    //读取文件中的内容到b[]数组  
-			        in.close();  
-					ParseFile pic = new ParseFile(b, "jpg");
-					pic.save();
-					String url = pic.getUrl();
-					Log.w("ParseFile", "url =" + url);
-					Thread.sleep(3000);
-					LunchSet set = new LunchSet();
-					set.setName("黑椒牛排");
-					set.setUrl(url);
-					set.setPrice("27");
-					set.saveToCloud();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-				}
-			}
-		}).start();
+//		new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				String file = "http___s2.lashouimg.com_zt_220_201302_18_136117721885094800.jpg";
+//				try {
+//					File f = FileAccessor.getSdFile(FileAccessor.TUANMANAGERIMAGEDIR + file);
+//					InputStream in = new FileInputStream(f);  
+//			        byte b[] = new byte[(int)f.length()];     //创建合适文件大小的数组  
+//			        in.read(b);    //读取文件中的内容到b[]数组  
+//			        in.close();  
+//					ParseFile pic = new ParseFile(b, "jpg");
+//					pic.save();
+//					String url = pic.getUrl();
+//					Log.w("ParseFile", "url =" + url);
+//					Thread.sleep(3000);
+//					LunchSet set = new LunchSet();
+//					set.setName("黑椒牛排");
+//					set.setUrl(url);
+//					set.setPrice("27");
+//					set.saveToCloud();
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (ParseException e) {
+//					e.printStackTrace();
+//				} catch (Exception e) {
+//					// TODO: handle exception
+//					e.printStackTrace();
+//				}
+//			}
+//		}).start();
 	}
 	@Override
 	protected void onResume() {

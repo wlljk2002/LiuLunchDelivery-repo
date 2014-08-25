@@ -30,6 +30,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.parse.ParseGeoPoint;
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
 import com.techbow.liulunchdelivery.parameter.DistributionGeo;
@@ -125,7 +126,7 @@ public class FragmentMap extends Fragment {
 				.latitude(location.getLatitude()).longitude(location.getLongitude()) // 经纬度
 				.speed(location.getSpeed()).build();
 			if(isFirstLocate) {
-				//FragmentList.asyncTask.execute();
+				FragmentList.asyncTask.execute();
 				isFirstLocate = false;
 			}
 			
@@ -147,25 +148,17 @@ public class FragmentMap extends Fragment {
 //						// TODO Auto-generated method stub
 //						Looper.prepare();
 //						final DistributionSite distribution = new DistributionSite();
-//						distribution.setSetTodayObjectId("53f35c6ce4b026a90a4189b9");
-//						distribution.setSetTomorrowObjectId("53f35c6ce4b026a90a4189b9");
-//						distribution.setSetThirdObjectId("53f35c6ce4b026a90a4189b9");
-//						distribution.setSetFourthObjectId("53f35c6ce4b026a90a4189b9");
-//						distribution.setSetFifthObjectId("53f35c6ce4b026a90a4189b9");
-//						try {
-//							AVFile pic = AVFile.withObjectId("53f35c69e4b026a90a4189ad");
-//							distribution.setThumbnailUrl(pic.getThumbnailUrl(false, 105, 105));
-//						} catch (FileNotFoundException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						} catch (AVException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
+//						distribution.setSetTodayObjectId("J7YJeHaJKQ");
+//						distribution.setSetTomorrowObjectId("J7YJeHaJKQ");
+//						distribution.setSetThirdObjectId("J7YJeHaJKQ");
+//						distribution.setSetFourthObjectId("J7YJeHaJKQ");
+//						distribution.setSetFifthObjectId("J7YJeHaJKQ");
+//						distribution.setThumbnailUrl("http://files.parsetfss.com/146d6cba-218a-4d4b-b4b9-e2201de92be7/tfss-1498454a-5406-4cb2-b199-8fcbced7e82b-file");
+//						
 //						final DistributionGeo geo = new DistributionGeo();
 //						double lat = locationData.latitude + ((double)idx * 0.001);
 //						double lon = locationData.longitude + ((double)idx * 0.001);
-//						geo.setPoint(new AVGeoPoint(lat, lon));
+//						geo.setPoint(new ParseGeoPoint(lat, lon));
 //						distribution.setName("上海交大" + idx);
 //						GeoCoder geoCoder = GeoCoder.newInstance();
 //						geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(new LatLng(lat, lon)));

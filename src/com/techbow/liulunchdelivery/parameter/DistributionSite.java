@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 
 public class DistributionSite implements Serializable{
 	private static final long serialVersionUID = 2L;
@@ -104,7 +106,7 @@ public class DistributionSite implements Serializable{
 	}
 
 	public String saveToCloud() {
-		final AVObject distributeSite = new AVObject("DistributeSite");
+		final ParseObject distributeSite = new ParseObject("DistributeSite");
 		distributeSite.put("name", name);
 		distributeSite.put("address", address);
 		distributeSite.put("setTodayObjectId", setTodayObjectId);
@@ -127,8 +129,8 @@ public class DistributionSite implements Serializable{
 //		});
 		try {
 			distributeSite.save();
-			Log.w("Avos", "object id =" + distributeSite.getObjectId());
-		} catch (AVException e) {
+			Log.w("Parse", "object id =" + distributeSite.getObjectId());
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
