@@ -68,17 +68,6 @@ public class ActivityLunch extends ActionBarActivity implements
 				});
 		new LunchAsyncTask(this, mSectionsPagerAdapter, actionBar).execute();
 		
-//		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-//			// Create a tab with text corresponding to the page title defined by
-//			// the adapter. Also specify this Activity object, which implements
-//			// the TabListener interface, as the callback (listener) for when
-//			// this tab is selected.
-//			ActionBar.Tab tab = actionBar.newTab().setCustomView(R.layout.actionbar_tab);
-//			TextView text = (TextView) tab.getCustomView().findViewById(R.id.tab_title);
-//			text.setText(mSectionsPagerAdapter.getPageTitle(i));
-//			tab.setTabListener(this);
-//			actionBar.addTab(tab);
-//		}
 	}
 	@Override
 	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {

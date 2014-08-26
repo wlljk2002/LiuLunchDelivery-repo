@@ -2,10 +2,6 @@ package com.techbow.liulunchdelivery.listmap;
 
 import java.util.List;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVGeoPoint;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;

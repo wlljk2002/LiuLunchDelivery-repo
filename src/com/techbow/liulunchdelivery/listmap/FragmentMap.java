@@ -10,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVGeoPoint;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -133,12 +130,12 @@ public class FragmentMap extends Fragment {
 			// 设置定位数据到定位图层上,就是显示当前位置的那个点和圆圈
 			mMapView.getMap().setMyLocationData(locationData);
  
-//			LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-//			
-//			// 基于原来的status上改变指定的参数
-//			MapStatus mapStatus = new MapStatus.Builder(mMapView.getMap().getMapStatus()).target(point).build();
-//			MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
-//			mMapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
+			LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
+			
+			// 基于原来的status上改变指定的参数
+			MapStatus mapStatus = new MapStatus.Builder(mMapView.getMap().getMapStatus()).target(point).build();
+			MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+			mMapView.getMap().animateMapStatus(mapStatusUpdate); // 改变,这里设置成随着移动而改变位置
  			
 // 			for (int i = 0; i < 11; i++) {
 // 				final int idx = i;
@@ -163,7 +160,6 @@ public class FragmentMap extends Fragment {
 //						GeoCoder geoCoder = GeoCoder.newInstance();
 //						geoCoder.reverseGeoCode(new ReverseGeoCodeOption().location(new LatLng(lat, lon)));
 //						geoCoder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-//							
 //							@Override
 //							public void onGetReverseGeoCodeResult(ReverseGeoCodeResult arg0) {
 //								// TODO Auto-generated method stub
@@ -171,11 +167,9 @@ public class FragmentMap extends Fragment {
 //								geo.setDistributionSiteObjectId(distribution.saveToCloud());
 //								geo.saveToCloud();
 //							}
-//							
 //							@Override
 //							public void onGetGeoCodeResult(GeoCodeResult arg0) {
 //								// TODO Auto-generated method stub
-//								
 //							}
 //						});
 //						Looper.loop();

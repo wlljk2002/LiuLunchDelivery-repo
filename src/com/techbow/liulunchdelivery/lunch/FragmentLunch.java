@@ -4,11 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.GetDataCallback;
-import com.avos.avoscloud.GetFileCallback;
+import com.parse.ParseUser;
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.parameter.LunchOrder;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
@@ -70,22 +66,7 @@ public class FragmentLunch extends Fragment {
 		imageShare = (ImageView) rootView.findViewById(R.id.imageShare);
 		editPhone = (EditText) rootView.findViewById(R.id.editPhone);
 		order = (Button) rootView.findViewById(R.id.order);
-//		AVFile.withObjectIdInBackground("53f35c69e4b026a90a4189ad", new GetFileCallback<AVFile>() {
-//			
-//			@Override
-//			public void done(AVFile arg0, AVException arg1) {
-//				// TODO Auto-generated method stub
-//				arg0.getDataInBackground(new GetDataCallback() {
-//					
-//					@Override
-//					public void done(byte[] arg0, AVException arg1) {
-//						// TODO Auto-generated method stub
-//						Bitmap bm = BitmapFactory.decodeStream(new ByteArrayInputStream(arg0));
-//						lunchImage.setImageBitmap(bm);
-//					}
-//				});
-//			}
-//		});
+
 		Bundle bundle = getArguments();
 		date = bundle.getInt("date");
 		lunchSet = (LunchSet) bundle.getSerializable("lunchSet");
@@ -93,7 +74,7 @@ public class FragmentLunch extends Fragment {
 		setImage.setImageBitmap(bitmap);
 		setName.setText(lunchSet.getName());
 		setPrice.setText("$ " + lunchSet.getPrice());
-		AVUser currentUser = AVUser.getCurrentUser();
+		ParseUser currentUser = ParseUser.getCurrentUser();
 		if (currentUser != null) {
 			editPhone.setText(currentUser.getUsername());
 		}
@@ -150,6 +131,12 @@ public class FragmentLunch extends Fragment {
 				order.setDate(String.valueOf(date));
 				order.setAmount(editOrder.getText().toString());
 				order.setPhone(editPhone.getText().toString());
+				ParseUser currentUser = ParseUser.getCurrentUser();
+				if (currentUser != null) {
+					order.setUserObjectId(currentUser.getObjectId());
+				} else {
+					order.setUserObjectId("null");
+				}
 				order.saveToCloud(getActivity());
 			}
 		});

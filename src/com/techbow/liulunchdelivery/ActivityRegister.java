@@ -1,11 +1,13 @@
 package com.techbow.liulunchdelivery;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
-import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.RequestMobileCodeCallback;
-import com.avos.avoscloud.SignUpCallback;
+import java.util.List;
+import java.util.Random;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.techbow.liulunchdelivery.Utils.SmsSendRecv;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -21,11 +23,13 @@ import android.widget.Toast;
 public class ActivityRegister extends ActionBarActivity {
 	private ActionBar actionBar;
 	private EditText editAccount;
-	private EditText editCode;
+	public EditText editCode;
 	private Button buttonCode;
 	private EditText editPassword;
 	private EditText editPasswordAgain;
 	private Button register;
+	private String randomCode;
+	private SmsSendRecv sms;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,10 @@ public class ActivityRegister extends ActionBarActivity {
 	    editPasswordAgain = (EditText) findViewById(R.id.editPasswordAgain);
 	    register = (Button) findViewById(R.id.register);
 	    
+	    Random random = new Random();
+        randomCode = String.valueOf(Math.abs(random.nextInt()%10000));
+        sms = new SmsSendRecv(this);
+	    
 	    buttonCode.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -55,22 +63,18 @@ public class ActivityRegister extends ActionBarActivity {
 					Toast.makeText(ActivityRegister.this, "Please input your phone number...",  Toast.LENGTH_SHORT).show();
 					return;
 				}
-//				try {
-//					AVOSCloud.requestSMSCode(editAccount.getText().toString(), "老刘食堂", "注册", 10);
-//					Toast.makeText(ActivityRegister.this, "ID code has been requested, please check coming message...",  Toast.LENGTH_LONG).show();
-//				} catch (AVException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					Toast.makeText(ActivityRegister.this, "Fail to request ID code. Server is not responding, or network is not working. Please try again later...",  Toast.LENGTH_LONG).show();
-//				}
-				AVOSCloud.requestSMSCodeInBackgroud(editAccount.getText().toString(), new RequestMobileCodeCallback() {
+				ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
+				userQuery.whereEqualTo("username", editAccount.getText().toString());
+				userQuery.findInBackground(new FindCallback<ParseUser>() {
 					@Override
-					public void done(AVException e) {
+					public void done(List<ParseUser> list, ParseException e) {
 						// TODO Auto-generated method stub
-						if (e == null) {
-							Toast.makeText(ActivityRegister.this, "ID code has been requested, please check coming message...",  Toast.LENGTH_LONG).show();
+						if (e == null && list.size() == 0) {
+							sms.sendMessage("ID CODE:" + randomCode, editAccount.getText().toString());
+						} else if (e == null) {
+							Toast.makeText(ActivityRegister.this, "Your phone number has already signed up...",  Toast.LENGTH_SHORT).show();
 						} else {
-							Toast.makeText(ActivityRegister.this, "Fail to request ID code. Server is not responding, or network is not working. Please try again later...",  Toast.LENGTH_LONG).show();
+							Toast.makeText(ActivityRegister.this, "Server is not responding, or network is not working. Please try again later...",  Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
@@ -87,35 +91,30 @@ public class ActivityRegister extends ActionBarActivity {
 					Toast.makeText(ActivityRegister.this, "Please input all information needed...",  Toast.LENGTH_SHORT).show();
 					return;
 				}
-			    AVOSCloud.verifySMSCodeInBackground(editCode.getText().toString(), new AVMobilePhoneVerifyCallback() {
-			        @Override
-			        public void done(AVException e) {
-			        //此处可以完成用户想要完成的操作
-			        	if (e == null) {
-			        		if (editPassword.getText().toString().equals(editPasswordAgain.getText().toString())) {
-			        			AVUser user = new AVUser();
-			        			user.setUsername(editAccount.getText().toString());
-			        			user.setPassword(editPassword.getText().toString());
-			        			user.signUpInBackground(new SignUpCallback() {
-			        			    public void done(AVException e) {
-			        			        if (e == null) {
-			        			            Toast.makeText(ActivityRegister.this, "Congratulations,  sign up is done!", Toast.LENGTH_LONG).show();
-			        			            ActivityRegister.this.finish();
-			        			        } else {
-			        			        	Toast.makeText(ActivityRegister.this, "Fail to sign up. Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
-			        			        }
-			        			    }
-			        			});
-			        		}
-			        		else {
-			        			Toast.makeText(ActivityRegister.this, "Passwords not consistent, please input again...",  Toast.LENGTH_SHORT).show();
-			        		}
-			        	}
-			        	else {
-			        		Toast.makeText(ActivityRegister.this, "Wrong ID code, please try again...",  Toast.LENGTH_SHORT).show();
-			        	}
-			        }
-			      });
+				if (editCode.getText().toString().equals(randomCode)) {
+					if (editPassword.getText().toString().equals(editPasswordAgain.getText().toString())) {
+	        			ParseUser user = new ParseUser();
+	        			user.setUsername(editAccount.getText().toString());
+	        			user.setPassword(editPassword.getText().toString());
+	        			user.signUpInBackground(new com.parse.SignUpCallback() {
+							@Override
+							public void done(ParseException e) {
+								// TODO Auto-generated method stub
+								if (e == null) {
+	        			            Toast.makeText(ActivityRegister.this, "Congratulations,  sign up is done!", Toast.LENGTH_LONG).show();
+	        			            ActivityRegister.this.finish();
+	        			        } else {
+	        			        	Toast.makeText(ActivityRegister.this, "Fail to sign up. Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
+	        			        }
+							}
+						});
+	        		}
+	        		else {
+	        			Toast.makeText(ActivityRegister.this, "Passwords not consistent, please input again...",  Toast.LENGTH_SHORT).show();
+	        		}
+				} else {
+					Toast.makeText(ActivityRegister.this, "Wrong ID code, please try again...",  Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -135,5 +134,11 @@ public class ActivityRegister extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		sms.deregisterAllReceiver();
 	}
 }

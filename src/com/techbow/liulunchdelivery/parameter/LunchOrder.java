@@ -2,13 +2,13 @@ package com.techbow.liulunchdelivery.parameter;
 
 import java.io.Serializable;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
+
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
 
 public class LunchOrder implements Serializable{
 	private static final long serialVersionUID = 3L;
@@ -67,7 +67,7 @@ public class LunchOrder implements Serializable{
 	}
 	
 	public void saveToCloud(final Context context) {
-		AVObject lunchSet = new AVObject("LunchOrder");
+		ParseObject lunchSet = new ParseObject("LunchOrder");
 		lunchSet.put("distributionSiteObjectId", distributionSiteObjectId);
 		lunchSet.put("setObjectId", setObjectId);
 		lunchSet.put("date", date);
@@ -75,9 +75,8 @@ public class LunchOrder implements Serializable{
 		lunchSet.put("phone", phone);
 		lunchSet.put("userObjectId", userObjectId);
 		lunchSet.saveInBackground(new SaveCallback() {
-			
 			@Override
-			public void done(AVException e) {
+			public void done(ParseException e) {
 				// TODO Auto-generated method stub
 				if (e != null) {
 					Toast.makeText(context, "submit order fail, could be network error!", Toast.LENGTH_LONG).show();

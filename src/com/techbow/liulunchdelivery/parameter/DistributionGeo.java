@@ -2,10 +2,6 @@ package com.techbow.liulunchdelivery.parameter;
 
 import android.util.Log;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVGeoPoint;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;

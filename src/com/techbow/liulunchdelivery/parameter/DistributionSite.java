@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import android.util.Log;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
@@ -115,18 +113,6 @@ public class DistributionSite implements Serializable{
 		distributeSite.put("setFourthObjectId", setFourthObjectId);
 		distributeSite.put("setFifthObjectId", setFifthObjectId);
 		distributeSite.put("thumbnailUrl", thumbnailUrl);
-//		distributeSite.saveInBackground(new SaveCallback() {
-//			
-//			@Override
-//			public void done(AVException e) {
-//				// TODO Auto-generated method stub
-//				if (e == null) {
-//					Log.w("Avos", "object id =" + distributeSite.getObjectId());
-//				} else {
-//					Log.w("Avos", "save in background fail");
-//				}
-//			}
-//		});
 		try {
 			distributeSite.save();
 			Log.w("Parse", "object id =" + distributeSite.getObjectId());

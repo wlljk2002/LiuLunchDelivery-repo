@@ -1,8 +1,7 @@
 package com.techbow.liulunchdelivery;
 
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -46,20 +45,22 @@ public class ActivityLogin extends ActionBarActivity {
 					Toast.makeText(ActivityLogin.this, "Please input all information needed...",  Toast.LENGTH_SHORT).show();
 					return;
 				}
-				AVUser.logInInBackground(editAccount.getText().toString(), editPassword.getText().toString(), new LogInCallback<AVUser>() {
-				    public void done(AVUser user, AVException e) {
-				        if (user != null) {
+				ParseUser.logInInBackground(editAccount.getText().toString(), editPassword.getText().toString(), new com.parse.LogInCallback() {
+					@Override
+					public void done(ParseUser user, ParseException e) {
+						// TODO Auto-generated method stub
+						if (e == null && user != null) {
 				            // µÇÂ¼³É¹¦
 				        	Toast.makeText(ActivityLogin.this, "Congratulations,  login is done!", Toast.LENGTH_LONG).show();
 				        	ActivityLogin.this.finish();
-				        } else if (e != null) {
-				        	Toast.makeText(ActivityLogin.this, "ActivityLogin. Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
+				        } else if (e != null && e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+				        	Toast.makeText(ActivityLogin.this, "Login fail, please input again and try...", Toast.LENGTH_LONG).show();
 				        }
 				        else {
 				            // µÇÂ¼Ê§°Ü
-				        	Toast.makeText(ActivityLogin.this, "Login fail, please input again and try...", Toast.LENGTH_LONG).show();
+				        	Toast.makeText(ActivityLogin.this, "Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
 				        }
-				    }
+					}
 				});
 			}
 		});

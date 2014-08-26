@@ -20,15 +20,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVAnalytics;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
 import com.baidu.mapapi.SDKInitializer;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.techbow.liulunchdelivery.Utils.FileAccessor;
 import com.techbow.liulunchdelivery.parameter.LunchSet;
 
@@ -124,9 +120,6 @@ public class ActivityListMap extends ActionBarActivity implements
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
-		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
-		AVAnalytics.trackAppOpened(getIntent());
-		
 		Parse.initialize(this, "oHwqgaN3HA2hz8j1AbO97RpuEvQWB91OuMhlM0Q4", "zZAMlIYRbsUYuj6rJwELovKFLIc1tpOAWY2AOhJs");
 		
 //		new Thread(new Runnable() {
@@ -178,7 +171,7 @@ public class ActivityListMap extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		//mViewPager.setCurrentItem(position);
 		//register, login, logout
-		AVUser currentUser = AVUser.getCurrentUser();
+		ParseUser currentUser = ParseUser.getCurrentUser();
 		switch (position) {
 		case 0:
 			if (currentUser != null) {
@@ -198,7 +191,7 @@ public class ActivityListMap extends ActionBarActivity implements
 			if (currentUser == null) {
 				Toast.makeText(this, "You are already logout...", Toast.LENGTH_SHORT).show();
 			} else {
-				AVUser.logOut();
+				ParseUser.logOut();
 				Toast.makeText(this, "Logout is done!", Toast.LENGTH_SHORT).show();
 			}
 			break;

@@ -1,15 +1,10 @@
 package com.techbow.liulunchdelivery.lunch;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
