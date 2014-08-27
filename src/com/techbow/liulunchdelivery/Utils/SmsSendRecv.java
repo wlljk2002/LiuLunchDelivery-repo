@@ -141,7 +141,7 @@ public class SmsSendRecv {
             String code = body.substring(8, 12);
             
             // 这里我是要获取自己短信服务号码中的验证码~~
-            Pattern pattern = Pattern.compile("[a-zA-Z0-9]{4}");
+            Pattern pattern = Pattern.compile("[0-9]{4}");
             Matcher matcher = pattern.matcher(code);//String body="测试验证码2346ds";
             if (matcher.find()) {
             	((ActivityRegister)context).editCode.setText(code);

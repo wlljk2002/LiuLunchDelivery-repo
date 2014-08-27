@@ -2,6 +2,7 @@ package com.techbow.liulunchdelivery;
 
 import java.util.Locale;
 
+import com.techbow.liulunchdelivery.listmap.FragmentGoogleMap;
 import com.techbow.liulunchdelivery.listmap.FragmentList;
 import com.techbow.liulunchdelivery.listmap.FragmentMap;
 
@@ -25,7 +26,7 @@ public class PagerAdapterListMap extends FragmentPagerAdapter {
 		case 0:
 			return new FragmentList();
 		case 1:
-			return new FragmentMap();
+			return new FragmentGoogleMap();
 		}
 		return null;
 	}
