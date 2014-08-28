@@ -58,7 +58,7 @@ public class ActivityListMap extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SDKInitializer.initialize(getApplicationContext());  
+		//SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.activity_list_map);
 		
 		// Set up the action bar.
