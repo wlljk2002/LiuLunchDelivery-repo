@@ -100,6 +100,7 @@ public class ActivityRegister extends ActionBarActivity {
 			        			    public void done(AVException e) {
 			        			        if (e == null) {
 			        			            Toast.makeText(ActivityRegister.this, "Congratulations,  sign up is done!", Toast.LENGTH_LONG).show();
+			        			            finish();
 			        			        } else {
 			        			        	Toast.makeText(ActivityRegister.this, "Fail to sign up. Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
 			        			        }

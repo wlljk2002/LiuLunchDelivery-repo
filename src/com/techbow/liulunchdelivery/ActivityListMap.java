@@ -119,7 +119,7 @@ public class ActivityListMap extends ActionBarActivity implements
 				(DrawerLayout) findViewById(R.id.drawer_layout));
 		
 		AVOSCloud.initialize(this, "g6giwuvkt2mhbhh8c3bwmozzloys0gsypjq6z9ptn2ssxpu0", "vq9oc8t714mv4xth2294n4y5ez6dqpag3u6ztrejypf8lqw9");
-		AVAnalytics.trackAppOpened(getIntent());
+		//AVAnalytics.trackAppOpened(getIntent());
 		
 //		new Thread(new Runnable() {
 //			

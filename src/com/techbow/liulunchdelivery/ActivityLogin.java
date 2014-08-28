@@ -51,6 +51,7 @@ public class ActivityLogin extends ActionBarActivity {
 				        if (user != null) {
 				            // µÇÂ¼³É¹¦
 				        	Toast.makeText(ActivityLogin.this, "Congratulations,  login is done!", Toast.LENGTH_LONG).show();
+				        	finish();
 				        } else if (e != null) {
 				        	Toast.makeText(ActivityLogin.this, "ActivityLogin. Server is not responding, or network is not working. Please try again later...", Toast.LENGTH_LONG).show();
 				        }
