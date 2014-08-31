@@ -1,7 +1,5 @@
 package com.techbow.liulunchdelivery.listmap;
 
-import org.apache.http.util.LangUtils;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.baidu.location.BDLocation;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MyLocationData;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -27,11 +20,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
-import com.parse.ParseGeoPoint;
 import com.techbow.liulunchdelivery.R;
 import com.techbow.liulunchdelivery.Utils.LoadingAndWaitDialog;
-import com.techbow.liulunchdelivery.parameter.DistributionGeo;
-import com.techbow.liulunchdelivery.parameter.DistributionSite;
 
 public class FragmentGoogleMap extends Fragment
 	implements

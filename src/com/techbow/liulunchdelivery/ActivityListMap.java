@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
