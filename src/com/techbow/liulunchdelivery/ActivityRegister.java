@@ -10,6 +10,7 @@ import com.parse.ParseUser;
 import com.techbow.liulunchdelivery.Utils.SmsSendRecv;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -40,9 +41,11 @@ public class ActivityRegister extends ActionBarActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-	    actionBar.setCustomView(customerView);
-	    actionBar.setDisplayShowCustomEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+	        View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		    actionBar.setCustomView(customerView);
+		    actionBar.setDisplayShowCustomEnabled(true);
+        }
 	    
 	    editAccount = (EditText) findViewById(R.id.editAccount);
 	    editCode = (EditText) findViewById(R.id.editCode);

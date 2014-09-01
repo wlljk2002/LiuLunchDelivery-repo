@@ -8,6 +8,7 @@ import java.io.InputStream;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -63,11 +64,12 @@ public class ActivityListMap extends ActionBarActivity implements
 		// Set up the action bar.
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		//actionBar.setDisplayShowTitleEnabled(false);
-		View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-	    actionBar.setCustomView(customerView);
-	    actionBar.setDisplayShowCustomEnabled(true);
-
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		    actionBar.setCustomView(customerView);
+		    actionBar.setDisplayShowCustomEnabled(true);
+		}
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		mSectionsPagerAdapter = new PagerAdapterListMap(

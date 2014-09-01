@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -47,9 +48,11 @@ public class ActivityLunch extends ActionBarActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-	    actionBar.setCustomView(customerView);
-	    actionBar.setDisplayShowCustomEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		    actionBar.setCustomView(customerView);
+		    actionBar.setDisplayShowCustomEnabled(true);
+		}
 	            
 		mSectionsPagerAdapter = new PagerAdapterLunch(
 				getSupportFragmentManager(), this);
