@@ -48,11 +48,9 @@ public class ActivityLunch extends ActionBarActivity implements
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-		    actionBar.setCustomView(customerView);
-		    actionBar.setDisplayShowCustomEnabled(true);
-		}
+        View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		actionBar.setCustomView(customerView);
+		actionBar.setDisplayShowCustomEnabled(true);
 	            
 		mSectionsPagerAdapter = new PagerAdapterLunch(
 				getSupportFragmentManager(), this);

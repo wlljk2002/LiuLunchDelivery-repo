@@ -30,11 +30,9 @@ public class ActivityLogin extends ActionBarActivity {
 		actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-		    actionBar.setCustomView(customerView);
-		    actionBar.setDisplayShowCustomEnabled(true);
-		}
+        View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		actionBar.setCustomView(customerView);
+		actionBar.setDisplayShowCustomEnabled(true);
 	    
 	    editAccount = (EditText) findViewById(R.id.editAccount);
 	    editPassword = (EditText) findViewById(R.id.editPassword);

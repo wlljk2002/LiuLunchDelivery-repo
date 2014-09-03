@@ -64,11 +64,9 @@ public class ActivityListMap extends ActionBarActivity implements
 		// Set up the action bar.
 		actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
-		    actionBar.setCustomView(customerView);
-		    actionBar.setDisplayShowCustomEnabled(true);
-		}
+		View customerView = getLayoutInflater().inflate(R.layout.actionbar_logo, null);
+		actionBar.setCustomView(customerView);
+		actionBar.setDisplayShowCustomEnabled(true);
 		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
