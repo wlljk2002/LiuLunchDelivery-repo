@@ -1,5 +1,10 @@
 <resources>
 
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
     <!--
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -10,13 +15,22 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="actionBarStyle">@style/my_actionbar_style</item>
+        <item name="actionBarTabStyle">@style/my_actionbar_tab_style</item>
     </style>
     
+    <style name="my_actionbar_style" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="background">@color/theme_red</item>
+        <item name="icon">@android:color/transparent</item> <!--  hide home icon -->
+        <item name="displayOptions">showHome</item> <!--  get rid of title and drawer indicator still show -->
+    </style>
+    
+    <style name="my_actionbar_tab_style" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_background_select</item>
+        <item name="divider">@null</item>
+        <item name="dividerPadding">0dp</item>
+    </style>
+
     <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/lunch_ratingbar</item>
         <item name="android:minHeight">40dp</item>
